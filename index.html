@@ -456,6 +456,7 @@
                     <div style="color: #666; font-size: 10px; margin-top: 3px; text-align: center;">
                       <span id="download-size">0 MB / 0 MB</span>
                       <span style="margin-left: 15px;">Speed: <span id="download-speed">0 KB/s</span></span>
+                      <span style="margin-left: 15px;">ETA: <span id="download-eta">--:--</span></span>
                     </div>
                   </div>
                   
@@ -1703,11 +1704,13 @@
              const downloadStatus = document.getElementById('download-status');
              const downloadSize = document.getElementById('download-size');
              const downloadSpeed = document.getElementById('download-speed');
+             const downloadEta = document.getElementById('download-eta');
              
              progressContainer.style.display = 'block';
              downloadStatus.textContent = 'Connecting...';
              progressBar.style.width = '0%';
              progressPercentage.textContent = '0%';
+             downloadEta.textContent = '--:--';
              
              let startTime = Date.now();
              let lastLoaded = 0;
@@ -1741,10 +1744,34 @@
                      const speedKBps = (speedBps / 1024).toFixed(1);
                      const speedMBps = (speedBps / 1024 / 1024).toFixed(1);
                      
+                     // 更新速度显示
                      if (speedBps > 1024 * 1024) {
                        downloadSpeed.textContent = `${speedMBps} MB/s`;
                      } else {
                        downloadSpeed.textContent = `${speedKBps} KB/s`;
+                     }
+                     
+                     // 🎯 计算剩余时间 ETA (使用平均速度，不是瞬时速度)
+                     const remainingBytes = e.total - e.loaded;
+                     const totalElapsedTime = (currentTime - startTime) / 1000; // 总用时(秒)
+                     const averageSpeedBps = e.loaded / totalElapsedTime; // 平均速度(字节/秒)
+                     
+                     if (averageSpeedBps > 0 && remainingBytes > 0 && totalElapsedTime > 1) {
+                       const etaSeconds = remainingBytes / averageSpeedBps;
+                       
+                       if (etaSeconds < 60) {
+                         downloadEta.textContent = `${Math.ceil(etaSeconds)}s`;
+                       } else if (etaSeconds < 3600) {
+                         const minutes = Math.floor(etaSeconds / 60);
+                         const seconds = Math.ceil(etaSeconds % 60);
+                         downloadEta.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                       } else {
+                         const hours = Math.floor(etaSeconds / 3600);
+                         const minutes = Math.floor((etaSeconds % 3600) / 60);
+                         downloadEta.textContent = `${hours}:${minutes.toString().padStart(2, '0')}:00`;
+                       }
+                     } else {
+                       downloadEta.textContent = '--:--';
                      }
                      
                      lastLoaded = e.loaded;
@@ -1756,6 +1783,7 @@
                xhr.onload = function() {
                  if (xhr.status === 200) {
                    downloadStatus.textContent = 'Download Complete!';
+                   downloadEta.textContent = '0:00';
                    progressBar.style.background = '#4CAF50';
                    setTimeout(() => {
                      progressContainer.style.display = 'none';
@@ -1763,6 +1791,7 @@
                    resolve(xhr.response);
                  } else {
                    downloadStatus.textContent = 'Download Failed';
+                   downloadEta.textContent = '--:--';
                    progressBar.style.background = '#f44336';
                    reject(new Error(`HTTP ${xhr.status}: Unable to load ${activeButtonUrl}`));
                  }
@@ -1770,6 +1799,7 @@
                
                xhr.onerror = () => {
                  downloadStatus.textContent = 'Network Error';
+                 downloadEta.textContent = '--:--';
                  progressBar.style.background = '#f44336';
                  reject(new Error('Network error'));
                };
