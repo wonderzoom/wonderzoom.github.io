@@ -1,0 +1,1927 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Project website for WonderZoom">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/fonts/open-sans.css">
+
+    <title>WonderZoom</title>
+    <link rel="icon" href="assets/images/icons/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/images/icons/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/project.css">
+    <link rel="stylesheet" href="assets/css/slick.css">
+    <link rel="stylesheet" href="assets/css/slick-theme.css">
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery-migrate.min.js"></script>
+    <script src="assets/js/slick.min.js"></script>
+
+</head>
+
+<style>
+    
+    #canvas-container {
+        background-color: rgb(178, 178, 178);
+    }
+    #canvas {
+        display: block;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+    }
+    .container{
+        max-width: 1000px;
+    }
+    .arrow {
+        border: solid black;
+        border-width: 0 4px 4px 0;
+
+        position: absolute;
+        top: 50%;
+
+        width: 20px;
+        height: 20px;
+        -webkit-transform: translate(0, -50%);
+        -ms-transform: translate(0, -50%);
+        transform: translate(0, -50%);
+        cursor: pointer;
+    }
+
+    .right {
+        transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+        right: -25px;
+    }
+
+    .left {
+        transform: rotate(135deg);
+        -webkit-transform: rotate(135deg);
+        left: -25px;
+    }
+
+    .nav-item img {
+        max-width: 100%;
+        /* Responsive media */
+        height: auto;
+        display: block;
+    }
+
+    .nav-item p {
+        text-align: center;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 500;
+        line-height: 1.5rem;
+        font-size: 1.2rem;
+        color: black;
+    }
+
+    .interactive-item {
+        align-content: center;
+    }
+
+    .interactive-item video {
+        max-width: 70%;
+        max-height: 400px;
+        justify-content: center;
+        align-items: center;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .interactive-item p {
+        text-align: center;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 500;
+        line-height: 1.5rem;
+        font-size: 1.2rem;
+        color: black;
+    }
+
+    .interactive-container {
+        margin-bottom: 0rem;
+        display: grid !important;
+        grid-template-columns: 100%;
+        grid-template-rows: 1fr;
+        gap: 0% 1%;
+        justify-content: center;
+    }
+
+    .generated-container {
+      margin-bottom: 1rem;
+      display: grid !important;
+      grid-template-columns: 100%;
+      grid-template-rows: 1fr;
+      gap: 0% 1%;
+      justify-content: center;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+  }
+
+    .teaser-item {
+        justify-content: center;
+        align-items: center;
+        display: flex;
+    }
+
+    .two-column-section {
+      display: flex;
+      width: 100%;
+      border-left: 10px;
+      border-right: 10px;
+    }
+    
+    .two-column-section .column {
+        padding: 0px;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .two-column-section .first-column {
+        width: 37%;
+        padding-left: 2%;
+    }
+    
+    .two-column-section .second-column {
+        width: 63%;
+        padding-right: 2%;
+    }
+
+    .slider-for-complete {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .slider-for-complete .slick-track {
+        display: flex !important;
+        align-items: center;
+    }
+
+    .slider-for-complete .slick-slide {
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+    }
+
+</style>
+
+<body>
+    <section>
+        <div class="container">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-7 col-sm-12 mt-4">
+                        <img src="assets/images/icons/logo.png" alt="WonderZoom:" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="title">
+                <p class="col text-center text-title">
+                    <em>Cross-scale</em> 3D Scene Generation
+                </p>
+            </div>
+        </div>
+    </section>
+
+
+ 
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col my-3">
+                  
+                  <div class="row">
+                    <div class="col text-center my-4">
+                        <img src="./assets/images/approach/teaser_img.png" class="img-fluid" alt="Teaser Image" style="max-width: 100%; height: auto;">
+                    </div>
+                  </div>
+
+                    <div class="teaser-item">
+                      <p class="body-text">
+                          <em>WonderZoom</em> fuses <strong>real‑time rendering</strong> with <strong>multi‑scale 3D world generation</strong>. Starting from a <em>single image</em>, the system represents the scene using <em> Multi-Scale Gaussian Surfels</em> and synthesizes finer details on‑demand as you pan, zoom, or describe new content in text. This lets you dive seamlessly from sweeping landscapes down to microscopic objects while maintaining geometric and stylistic coherence. (Videos below are time‑lapsed recordings of this cross‑scale generation process.)
+                      </p>
+                  </div>
+                </div>
+            </div>
+
+            </div>
+        </div>
+
+
+    </section>
+
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col my-3">
+                    <p class="text-header">
+                        Generated Virtual World<br>
+                    </p>
+                    <div class="teaser-item">
+                        <p class="body-text">
+                            Here are some examples of generated worlds with different camera path styles: <b>zoom-in</b>, <b>curvy</b>, and <b>Rotating</b>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container slider-for-complete">
+
+            <div class="container generated-container">
+                <div class="interactive-item">
+                    <video muted controls loop playsinline webkit-playsinline>
+                        <source data-lazy="assets/videos/overall.mp4"
+                            type="video/mp4">
+                    </video>
+                </div>
+            </div>
+
+            <div class="container generated-container">
+                <div class="interactive-item">
+                    <video muted controls loop playsinline webkit-playsinline>
+                        <source src="assets/videos/demo_ladybug_1080.mp4"
+                            type="video/mp4">
+                    </video>
+                </div>
+            </div>
+
+            <div class="container generated-container">
+                <div class="interactive-item">
+                    <video muted controls loop playsinline webkit-playsinline>
+                        <source src="assets/videos/demo_conch1080.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+
+            <div class="container generated-container">
+              <div class="interactive-item">
+                  <video muted controls loop playsinline webkit-playsinline>
+                      <source src="assets/videos/beach2.mp4" type="video/mp4">
+                  </video>
+              </div>
+          </div>
+
+            <div class="container generated-container">
+                <div class="interactive-item">
+                    <video muted controls loop playsinline webkit-playsinline>
+                        <source src="assets/videos/demo_fish_1080.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+
+            <div class="container generated-container">
+                <div class="interactive-item">
+                    <video muted controls loop playsinline webkit-playsinline>
+                        <source src="assets/videos/demo_lego.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+
+            <div class="container generated-container">
+                <div class="interactive-item">
+                    <video muted controls loop playsinline webkit-playsinline>
+                        <source src="assets/videos/demo_butterfly1080.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+
+            <div class="container generated-container">
+              <div class="interactive-item">
+                  <video muted controls loop playsinline webkit-playsinline>
+                      <source src="assets/videos/butterfly2.mp4" type="video/mp4">
+                  </video>
+              </div>
+          </div>
+
+            <div class="container generated-container">
+                <div class="interactive-item">
+                    <video muted controls loop playsinline webkit-playsinline>
+                        <source src="assets/videos/demo_beetle1080.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+
+            <div class="container generated-container">
+                <div class="interactive-item">
+                    <video muted controls loop playsinline webkit-playsinline>
+                        <source src="assets/videos/demo_lizard.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <div class="container slider-nav-complete">
+
+            <div class="container nav-item">
+              <img data-lazy="assets/images/complete/street.png">
+              <p>Street</p>
+            </div>
+
+            <div class="container nav-item">
+              <img data-lazy="assets/images/complete/sunf.png">
+              <p>Sunflower</p>
+            </div>
+
+            <div class="container nav-item">
+                <img data-lazy="assets/images/complete/beach.jpg">
+                <p>Beach1</p>
+            </div>
+
+            <div class="container nav-item">
+              <img data-lazy="assets/images/complete/beach2.png">
+              <p>Beach2</p>
+          </div>
+
+            <div class="container nav-item">
+                <img data-lazy="assets/images/complete/coral.png">
+                <p>Coral</p>
+            </div>
+
+            <div class="container nav-item">
+                <img data-lazy="assets/images/complete/deng.png">
+                <p>House</p>
+            </div>
+
+            <div class="container nav-item">
+                <img data-lazy="assets/images/complete/tea_garden.jpg">
+                <p>Tea Garden1</p>
+            </div>
+
+            <div class="container nav-item">
+              <img data-lazy="assets/images/complete/tea_garden2.png">
+              <p>Tea Garden2</p>
+          </div>
+
+            <div class="container nav-item">
+                <img data-lazy="assets/images/complete/Tree.png">
+                <p>Tree</p>
+            </div>
+
+            <div class="container nav-item">
+                <img data-lazy="assets/images/complete/wooden.jpg">
+                <p>Wooden</p>
+            </div>
+
+
+
+        </div>
+
+    </section>
+
+    <section>
+      <div class="container">
+          <div class="row">
+              <div class="col my-3">
+                  <p class="text-header">
+                      Interactive Viewing
+                  </p>
+                  <div class="teaser-item">
+                      <p class="body-text">
+                          <b>Keyboard:</b> Move by "W/A/S/D", look around by "I/J/K/L". Rotate around the center point by "F". Click the button "Scale 0/1/2" to zoom-in/out.<br>
+                          <b>Touch Screen:</b> Move by one-finger drag, look around by two-finger drag. <br>
+                          <b>Note: </b> Clicking an image will automatically download a generated virtual world example from an <b>anonymous source</b>. After loading, please click on the canvas to activate control. The rendering here is done on your device in real-time. <b>Downloading an example (~100MB) may take a while. Since the web renderer does not support our proposed LoD and applies depth quantization, the rendering quality suffers from noticeable degradation.</b>
+                      </p>
+                  </div>
+                  <div class="teaser-item my-2" id="buttonContainer">
+                      <button class="button active">Clear</button>
+                      <button class="button-img" data-url="https://hf-mirror.com/datasets/anonymous1273891/wonderzoom1/resolve/main/ladybug_spark.splat?download=true">
+                          <img src="assets/images/complete/sunf.png" alt="Beach" style="width: 100%; height: auto;">
+                      </button>
+                      <button class="button-img" data-url="https://hf-mirror.com/datasets/anonymous1273891/wonderzoom1/resolve/main/bird_spark.splat?download=true">
+                          <img src="assets/images/complete/street1.png" alt="Coral" style="width: 100%; height: auto;">
+                      </button>
+                      <button class="button-img" data-url="https://hf-mirror.com/datasets/anonymous1273891/wonderzoom1/resolve/main/conch_spark.splat?download=true">
+                          <img src="assets/images/complete/beach2.png" alt="Sunflower" style="width: 100%; height: auto;">
+                      </button>
+                      <!-- <button class="button-img" data-url="https://hf-mirror.com/datasets/TmaKiss/sp/resolve/main/gau_fish_complete.splat?download=true">
+                          <img src="assets/images/complete/street.png" alt="Street" style="width: 100%; height: auto;">
+                      </button>
+                      <button class="button-img" data-url="https://hf-mirror.com/datasets/TmaKiss/sp/resolve/main/gau_lego_complete.splat">
+                          <img src="assets/images/complete/tea_garden.jpg" alt="Tea Garden" style="width: 100%; height: auto;">
+                      </button>
+                      <button class="button-img" data-url="https://hf-mirror.com/datasets/TmaKiss/sp/resolve/main/gau_niu_complete.splat">
+                          <img src="assets/images/complete/Tree.png" alt="Tree" style="width: 100%; height: auto;">
+                      </button>
+                      <button class="button-img" data-url="https://hf-mirror.com/datasets/TmaKiss/sp/resolve/main/gau_wo_complete.splat">
+                          <img src="assets/images/complete/wooden.jpg" alt="Wooden" style="width: 100%; height: auto;">
+                      </button> -->
+                  </div>
+                  <div id="message"></div>
+                  
+                  <!-- Scale Controls -->
+                  <div class="teaser-item my-2" id="scaleContainer">
+                      <button class="button scale-button active" data-scale="0">Scale 0</button>
+                      <button class="button scale-button" data-scale="1">Scale 1</button>
+                      <button class="button scale-button" data-scale="2">Scale 2</button>
+                  </div>
+                  
+                  <!-- 🎯 Spark -->
+                  <div class="teaser-item" id="spark-renderer-container" style="position: relative; width: 60%; height: 350px; background: #202840; border-radius: 8px; overflow: hidden; margin: 0 auto;">
+                    <div id="spark-ui" style="position: absolute; top: 10px; left: 10px; z-index: 10; font-family: sans-serif; font-size: 11px; line-height: 1.3; color: #fff; background: rgba(0,0,0,.4); padding: 5px 8px; border-radius: 4px; user-select: none; pointer-events: none;">
+                      Drag & drop <b>.splat/.spz/.ply</b> files<br>or <b>double-click</b> to open
+                    </div>
+                    <div id="spark-info" style="position: absolute; top: 10px; right: 10px; z-index: 10; font-family: monospace; font-size: 10px; line-height: 1.2; color: #fff; background: rgba(0,0,0,.6); padding: 6px 8px; border-radius: 4px; user-select: none; pointer-events: none; min-width: 140px;">
+                      <div>FOV: <span id="spark-fov">18.9°</span></div>
+                      <div>Focal: <span id="spark-focal">1441px</span></div>
+                      <div>FPS: <span id="spark-fps">0</span></div>
+                      <div>Position:</div>
+                      <div>&nbsp;&nbsp;X: <span id="spark-posX">0.00</span></div>
+                      <div>&nbsp;&nbsp;Y: <span id="spark-posY">0.00</span></div>
+                      <div>&nbsp;&nbsp;Z: <span id="spark-posZ">0.10</span></div>
+                      <div>Rotation:</div>
+                      <div>&nbsp;&nbsp;X: <span id="spark-rotX">0.00°</span></div>
+                      <div>&nbsp;&nbsp;Y: <span id="spark-rotY">0.00°</span></div>
+                      <div>&nbsp;&nbsp;Z: <span id="spark-rotZ">0.00°</span></div>
+                      <div>Splats: <span id="spark-splatCount">0</span></div>
+                      <div>Rendered: <span id="spark-renderedCount">?</span></div>
+                      <div>Speed Factor: <span id="spark-speedFactor">1.00</span></div>
+                      <div>Orbit: <span id="spark-orbitStatus">OFF</span></div>
+                      <div>Split: <span id="spark-splitStatus">OFF</span></div>
+                    </div>
+                    
+                    <!-- 🎯 键盘按键显示 -->
+                    <!-- 左下角：移动控制 WASD + F -->
+                    <div id="keyboard-move" style="position: absolute; bottom: 20px; left: 20px; z-index: 10; font-family: monospace; font-size: 14px; user-select: none; pointer-events: none;">
+                      <div style="text-align: center;">
+                        <div style="color: #fff; font-size: 10px; margin-bottom: 5px;">Move</div>
+                        <div style="display: flex; justify-content: center; align-items: flex-end; gap: 2px;">
+                          <div></div>
+                          <div class="key-btn" data-key="KeyW" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); padding: 4px 8px; border-radius: 4px;margin-left: 20px; color: #fff; transition: all 0.1s;">W</div>
+                          <div></div>
+                          <div></div>
+                          <div style="display: flex; flex-direction: column; align-items: center;">
+                             <div style="color: #aaa; font-size: 8px; margin-bottom: 2px; margin-left: 25px; white-space: nowrap;">Orbit</div>
+                            <div></div>
+                          </div>
+                        </div>
+                        <div style="display: flex; justify-content: center; align-items: center; gap: 2px; margin-top: 2px;">
+                          <div class="key-btn" data-key="KeyA" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); padding: 4px 8px; border-radius: 4px; color: #fff; transition: all 0.1s;">A</div>
+                          <div class="key-btn" data-key="KeyS" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); padding: 4px 8px; border-radius: 4px; color: #fff; transition: all 0.1s;">S</div>
+                          <div class="key-btn" data-key="KeyD" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); padding: 4px 8px; border-radius: 4px; color: #fff; transition: all 0.1s;">D</div>
+                          <div class="key-btn" data-key="KeyF" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); padding: 4px 8px; border-radius: 4px; color: #fff; transition: all 0.1s;">F</div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- 右下角：视角控制 IJKL -->
+                    <div id="keyboard-look" style="position: absolute; bottom: 20px; right: 20px; z-index: 10; font-family: monospace; font-size: 14px; user-select: none; pointer-events: none;">
+                      <div style="text-align: center;">
+                        <div style="color: #fff; font-size: 10px; margin-bottom: 5px;">Look</div>
+                        <div style="display: flex; justify-content: center; align-items: center; gap: 2px;">
+                          <div></div>
+                          <div class="key-btn" data-key="KeyI" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); padding: 4px 8px; border-radius: 4px; color: #fff; transition: all 0.1s;">I</div>
+                          <div></div>
+                        </div>
+                        <div style="display: flex; justify-content: center; align-items: center; gap: 2px; margin-top: 2px;">
+                          <div class="key-btn" data-key="KeyJ" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); padding: 4px 8px; border-radius: 4px; color: #fff; transition: all 0.1s;">J</div>
+                          <div class="key-btn" data-key="KeyK" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); padding: 4px 8px; border-radius: 4px; color: #fff; transition: all 0.1s;">K</div>
+                          <div class="key-btn" data-key="KeyL" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); padding: 4px 8px; border-radius: 4px; color: #fff; transition: all 0.1s;">L</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+  </section>
+
+    <section>
+        <div class="container">
+            <div class="row" id="approach">
+                <div class="col my-3">
+                    <p class="text-header">
+                        Approach
+                    </p>
+                    <div class="container">
+                        <img src="assets/images/approach/approach.jpg" class="approach-figure">
+                    </div>
+                    <p class="body-text" style="margin-top: 1rem;">
+                      <em>WonderZoom</em> begins with a single input image and progressively constructs a hierarchy of 3D scenes covering ever‑finer spatial scales. Two key innovations make this possible:
+                      <br><br>
+                      • <strong>Multi-Scale Gaussian Surfels</strong> – a dynamically updatable representation that lets new fine‑scale surfels be inserted without re‑optimising the entire scene, while still rendering in real time.
+                      <br>
+                      • <strong>Progressive detail synthesizer</strong> – an autoregressive module that leverages image, depth and large‑language models to hallucinate and register novel 3D content whenever the user zooms into a region or issues a text prompt.
+                      <br><br>
+                      These components work together to enable interactive exploration from macro panoramas to micro textures, outperforming prior single‑scale generators in both perceptual quality and scale consistency.
+                  </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Interactive slider initialization (keep this as it was)
+            $('.slider-for-interactive').on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+                var video = $(slick.$slides[nextSlide]).find('video');
+                var videoSource = video.find('source[data-lazy]');
+                if (videoSource.length) {
+                    videoSource.attr('src', videoSource.data('lazy'));
+                    videoSource.removeAttr('data-lazy');
+                    video.get(0).load();
+                }
+            });
+            $('.slider-nav-interactive').slick({
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                asNavFor: '.slider-for-interactive',
+                dots: true,
+                centerMode: true,
+                centerPadding: '10%',
+                focusOnSelect: true,
+                nextArrow: '<div class="arrow right"></div>',
+                prevArrow: '<div class="arrow left"></div>',
+            });
+            $('.slider-for-interactive').slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false,
+                asNavFor: '.slider-nav-interactive',
+                autoplay: true,
+                speed: 300,
+                autoplaySpeed: 100000,
+            });
+    
+            // Complete slider initialization (modified)
+            $('.slider-for-complete').on('init', function(event, slick){
+                var firstVideo = $(slick.$slides[0]).find('video');
+                var firstVideoSource = firstVideo.find('source');
+                if (firstVideoSource.attr('data-lazy')) {
+                    firstVideoSource.attr('src', firstVideoSource.attr('data-lazy'));
+                    firstVideoSource.removeAttr('data-lazy');
+                    firstVideo[0].load();
+                    firstVideo[0].play();
+                }
+            });
+    
+            $('.slider-for-complete').on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+                var nextSlideElem = $(slick.$slides[nextSlide]);
+                var video = nextSlideElem.find('video');
+                var source = video.find('source');
+                
+                if (source.attr('data-lazy')) {
+                    source.attr('src', source.attr('data-lazy'));
+                    source.removeAttr('data-lazy');
+                    video[0].load();
+                }
+            });
+    
+            $('.slider-for-complete').on('afterChange', function(event, slick, currentSlide) {
+                var currentSlideElem = $(slick.$slides[currentSlide]);
+                var video = currentSlideElem.find('video');
+                if (video.length) {
+                    video[0].play();
+                }
+            });
+    
+            $('.slider-nav-complete').slick({
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                asNavFor: '.slider-for-complete',
+                dots: true,
+                centerMode: true,
+                centerPadding: '10%',
+                focusOnSelect: true,
+                nextArrow: '<div class="arrow right"></div>',
+                prevArrow: '<div class="arrow left"></div>',
+            });
+    
+            $('.slider-for-complete').slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false,
+                asNavFor: '.slider-nav-complete',
+                autoplay: true,
+                speed: 300,
+                autoplaySpeed: 100000,
+                lazyLoad: 'ondemand',
+                centerMode: true,
+                centerPadding: '0px'
+            });
+        });
+    </script>
+    <script src="assets/js/canvas.js"></script>
+    
+    <!-- 🎯 Spark -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.174/build/three.module.js",
+          "@sparkjsdev/spark": "https://sparkjs.dev/releases/spark/0.1.8/spark.module.js"
+        }
+      }
+    </script>
+    <script type="module">
+      // 🎯 WebGL
+      window.addEventListener('error', function(e) {
+       // if (e.message && e.message.includes('getContext')) {
+      //    e.preventDefault();
+         // return false;
+        //}
+      });
+      
+      import * as THREE from "three";
+      import { SplatMesh, SplatFileType, SparkControls } from "@sparkjsdev/spark";
+
+      // 🎯 
+      let splatFirst = null;  // 50%splat
+      let splatSecond = null; // 50%splat
+      let currentFileType = null; // 
+      
+      // 🎯 Spark
+      function initSparkRenderer() {
+        const container = document.getElementById('spark-renderer-container');
+        if (!container) return;
+
+                 // canvas
+         const canvas = document.createElement('canvas');
+         canvas.style.width = '100%';
+         canvas.style.height = '100%';
+         canvas.style.display = 'block';
+         container.appendChild(canvas);
+
+          // 
+          const rect = container.getBoundingClientRect();
+          const width = rect.width || 600;  // 
+          const height = rect.height || 350; // 
+         
+         // canvas
+         canvas.width = width;
+         canvas.height = height;
+
+                 // 
+         const scene = new THREE.Scene();
+         scene.background = new THREE.Color(0x202840);
+         
+         // 
+         window.sparkScene = scene;
+
+                 // 
+         const camera = new THREE.PerspectiveCamera(2 * Math.atan((480/2) / 1441) * 180 / Math.PI, width/height, 0.1, 10000);
+         camera.position.set(0,0,0.);
+         
+         // 
+         window.sparkCamera = camera;
+
+                 // 
+         const renderer = new THREE.WebGLRenderer({
+           antialias: false, 
+           logarithmicDepthBuffer: false, 
+           canvas: canvas,
+           alpha: true,
+           preserveDrawingBuffer: false
+         });
+         renderer.setPixelRatio(devicePixelRatio);
+         renderer.setSize(width, height);
+         renderer.setClearColor(0x202840, 1);
+
+        // 
+        const controls = new SparkControls({ canvas: renderer.domElement });
+        controls.pointerControls.enable = false;
+        
+        // controls
+        window.sparkControls = controls;
+        
+        // 
+        renderer.domElement.addEventListener('mousedown', (e) => e.preventDefault(), { passive: false });
+        renderer.domElement.addEventListener('mousemove', (e) => e.preventDefault(), { passive: false });
+        renderer.domElement.addEventListener('mouseup', (e) => e.preventDefault(), { passive: false });
+        renderer.domElement.addEventListener('wheel', (e) => e.preventDefault(), { passive: false });
+        
+        // 
+        let baseMoveSpeed = 1.0;
+        let baseRotateSpeed = 2e-3;
+        
+        function getSpeedFactor() {
+          const currentFocal = fovToFx(camera.fov);
+          return Math.pow(1441 / currentFocal, 1)*0.4;
+        }
+        
+                 // 
+         let activeKeys = [];
+         let yaw = 0;
+         let pitch = 0;
+         
+         // yawpitch
+         window.sparkLocalYaw = yaw;
+         window.sparkLocalPitch = pitch;
+         
+         // yawpitch
+         window.resetLocalRotation = function() {
+           yaw = 0;
+           pitch = 0;
+           window.sparkLocalYaw = yaw;
+           window.sparkLocalPitch = pitch;
+           console.log('🎯 rotation: yaw=0, pitch=0');
+         };
+         
+         // yawpitch
+         window.updateLocalRotation = function(newYaw, newPitch) {
+           yaw = newYaw;
+           pitch = newPitch;
+           window.sparkLocalYaw = yaw;
+           window.sparkLocalPitch = pitch;
+         };
+         
+         // 
+         let orbitMode = false;
+         
+        // 
+        window.sparkYaw = yaw;
+        window.sparkPitch = pitch;
+        window.sparkOrbitMode = orbitMode;
+       let orbitStartTime = 0;
+       let orbitDuration = 1600;
+       let orbitRadius = 0.1;
+       // 
+       window.sparkOrbitRadius = orbitRadius;
+        let orbitCenter = new THREE.Vector3();
+        let originalCameraPosition = new THREE.Vector3();
+        let originalCameraRotation = new THREE.Euler();
+        
+                 //  
+         document.addEventListener("sparkKeyDown", (e) => {
+           const keyCode = e.detail.code;
+           
+           // 
+           if (keyCode === "KeyF") {
+             if (!orbitMode) {
+               startOrbitCamera();
+             }
+             // ，
+             return;
+           }
+           
+           // 
+           if (!activeKeys.includes(keyCode)) {
+             activeKeys.push(keyCode);
+            /// console.log('🎮 :', keyCode, ':', activeKeys);
+           }
+         });
+        
+                 // keyup 
+         document.addEventListener('keyup', (e) => {
+           const controlKeys = ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyV', 'KeyB', 
+                               'KeyI', 'KeyJ', 'KeyK', 'KeyL'];
+           
+           if (controlKeys.includes(e.code)) {
+             if (!document.activeElement || 
+                 (document.activeElement.tagName !== 'INPUT' && 
+                  document.activeElement.tagName !== 'TEXTAREA' && 
+                  document.activeElement.contentEditable !== 'true')) {
+               
+               activeKeys = activeKeys.filter((k) => k !== e.code);
+               console.log('🎮 :', e.code, ':', activeKeys,"pitch:", pitch, "yaw:", yaw);
+             }
+           }
+         });
+        
+        window.addEventListener("blur", () => {
+          activeKeys = [];
+        });
+        
+        // 
+        function startOrbitCamera() {
+          if (orbitMode) return;
+          
+          orbitMode = true;
+          orbitStartTime = performance.now();
+          
+          originalCameraPosition.copy(camera.position);
+          originalCameraRotation.copy(camera.rotation);
+          
+          const forward = new THREE.Vector3(0, 0, -1);
+          forward.applyQuaternion(camera.quaternion);
+          // 
+          orbitCenter.copy(camera.position);
+          
+          console.log("🎬 ");
+        }
+        
+        function updateOrbitCamera() {
+          if (!orbitMode) return;
+          
+          const currentTime = performance.now();
+          const elapsed = currentTime - orbitStartTime;
+          const progress = (elapsed % orbitDuration) / orbitDuration;
+          
+          const angle = progress * Math.PI * 2;
+          
+          const currentOrbitRadius = window.sparkOrbitRadius || orbitRadius;
+          const orbitX = orbitCenter.x + currentOrbitRadius * Math.cos(angle);
+          const orbitZ = orbitCenter.z;
+          const orbitY = orbitCenter.y + currentOrbitRadius * Math.sin(angle);
+          
+          camera.position.set(orbitX, orbitY, orbitZ);
+          
+          let orbitCenter_target = new THREE.Vector3();
+          orbitCenter_target.copy(orbitCenter);
+          // lookAt
+          if (window.sparkTargetPosition) {
+            orbitCenter_target.set(window.sparkTargetPosition[0], window.sparkTargetPosition[1], window.sparkTargetPosition[2]);
+          }
+          else{
+            orbitCenter_target.set(-0.0306, 0.0250, -6.3509);
+          }
+          camera.lookAt(orbitCenter_target);
+          
+          if (elapsed >= orbitDuration) {
+            // 🎯 轨道结束后，回到当前scale的初始状态
+            returnToCurrentScaleState();
+            stopOrbitCamera();
+          }
+        }
+        
+        // 🎯 轨道结束后回到当前scale的初始状态
+        function returnToCurrentScaleState() {
+          // 获取当前激活的scale
+          const activeScaleButton = document.querySelector('.scale-button.active');
+          if (!activeScaleButton) {
+            console.log('🎯 未找到激活的scale按钮，回到原始位置');
+            return;
+          }
+          
+          const currentScale = activeScaleButton.dataset.scale;
+          const currentScaleSettings = getScaleSettings(currentScale);
+          
+          if (currentScaleSettings) {
+            // 设置相机位置
+            camera.position.set(
+              currentScaleSettings.position[0],
+              currentScaleSettings.position[1], 
+              currentScaleSettings.position[2]
+            );
+            
+            // 设置focal length
+            function fovToFx(fov, h = 480) { 
+              return (h/2)/Math.tan(THREE.MathUtils.degToRad(fov)/2); 
+            }
+            const newFov = 2 * Math.atan((480/2) / currentScaleSettings.focal) * 180 / Math.PI;
+            camera.fov = newFov;
+            camera.updateProjectionMatrix();
+            
+            // 更新全局yaw和pitch
+            yaw = currentScaleSettings.yaw;
+            pitch = currentScaleSettings.pitch;
+            window.sparkLocalYaw = currentScaleSettings.yaw;
+            window.sparkLocalPitch = currentScaleSettings.pitch;
+            
+            console.log(`🎯 轨道结束，回到Scale ${currentScale}的初始状态: position[${currentScaleSettings.position}], focal:${currentScaleSettings.focal}, yaw:${currentScaleSettings.yaw.toFixed(4)}, pitch:${currentScaleSettings.pitch.toFixed(4)}`);
+          }
+        }
+
+        // 🎯 从相机的rotation更新全局yaw和pitch变量
+        function updateGlobalRotationFromCamera() {
+          // 从相机的rotation提取yaw和pitch
+          const euler = new THREE.Euler().setFromQuaternion(camera.quaternion, 'YXZ');
+          const newPitch = euler.x;
+          const newYaw = euler.y;
+          
+          // 更新全局变量
+          yaw = newYaw;
+          pitch = newPitch;
+          window.sparkLocalYaw = newYaw;
+          window.sparkLocalPitch = newPitch;
+          
+          console.log(`🎯 轨道结束，更新全局rotation: yaw=${newYaw.toFixed(4)}, pitch=${newPitch.toFixed(4)}`);
+        }
+
+        function stopOrbitCamera() {
+          if (!orbitMode) return;
+          
+          orbitMode = false;
+          console.log("🎬 ");
+        }
+        
+                 // controlsupdate
+         controls.update = function(control) {
+           const speedFactor = getSpeedFactor();
+           
+           updateOrbitCamera();
+           
+           if (!orbitMode) {
+             // 
+             if (!window.sparkCameraTransitioning) {
+               // IJKL
+               if (activeKeys.includes("KeyJ")) {
+                 yaw += 0.005 * speedFactor;
+                 window.sparkLocalYaw = yaw;
+               }
+               if (activeKeys.includes("KeyL")) {
+                 yaw -= 0.005 * speedFactor;
+                 window.sparkLocalYaw = yaw;
+               }
+               if (activeKeys.includes("KeyI")) {
+                 pitch += 0.005 * speedFactor;
+                 window.sparkLocalPitch = pitch;
+               }
+               if (activeKeys.includes("KeyK")) {
+                 pitch -= 0.005 * speedFactor;
+                 window.sparkLocalPitch = pitch;
+               }
+               
+               pitch = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, pitch));
+               window.sparkLocalPitch = pitch;
+               
+               // 🎯  - pitchyaw
+               if (window.sparkBbox) {
+                 pitch = Math.max(window.sparkBbox[4], Math.min(window.sparkBbox[5], pitch));
+                 yaw = Math.max(window.sparkBbox[6], Math.min(window.sparkBbox[7], yaw));
+                 window.sparkLocalPitch = pitch;
+                 window.sparkLocalYaw = yaw;
+               }
+             }
+             
+             control.rotation.set(pitch, yaw, 0, 'YXZ');
+           }
+          
+                     if (controls.fpsMovement && !orbitMode) {
+             const time = performance.now();
+             const deltaTime = (time - (controls.lastTime || time)) / 1e3;
+             controls.lastTime = time;
+             
+             const originalMoveSpeed = controls.fpsMovement.moveSpeed;
+             controls.fpsMovement.moveSpeed = baseMoveSpeed * speedFactor;
+             
+             const originalKeycodeMoveMapping = controls.fpsMovement.keycodeMoveMapping;
+             controls.fpsMovement.keycodeMoveMapping = {
+               KeyW: new THREE.Vector3(0, 0, -1),  // 
+               KeyS: new THREE.Vector3(0, 0, 1),   // 
+               KeyA: new THREE.Vector3(-1, 0, 0),  // 
+               KeyD: new THREE.Vector3(1, 0, 0)    // 
+             };
+             
+             controls.fpsMovement.update(deltaTime, control);
+             
+             // 🎯  - 
+             if (window.sparkBbox) {
+               control.position.x = Math.max(window.sparkBbox[0], Math.min(window.sparkBbox[1], control.position.x));
+               control.position.z = Math.max(window.sparkBbox[2], Math.min(window.sparkBbox[3], control.position.z));
+             }
+             
+             // 🎯  - canvas.js
+             if (window.sparkRadius && window.sparkRadius < 9999) {
+               // 
+               const distance = Math.hypot(control.position.x, control.position.y, control.position.z);
+               if (distance > window.sparkRadius) {
+                 // ，
+                 const factor = window.sparkRadius / distance;
+                 control.position.x *= factor;
+                 control.position.y *= factor;
+                 control.position.z *= factor;
+                 console.log(`🎯 : ${distance.toFixed(3)} > ${window.sparkRadius}, `);
+               }
+             }
+             
+             controls.fpsMovement.moveSpeed = originalMoveSpeed;
+             controls.fpsMovement.keycodeMoveMapping = originalKeycodeMoveMapping;
+           }
+        };
+        
+                 let splat = null;
+
+         // 
+         async function loadFile(file) {
+           if (!file) return;
+           const ext = file.name.split(".").pop().toLowerCase();
+
+           if (splat) { scene.remove(splat); splat.dispose?.(); }
+           
+           // 
+           if (window.sparkSplat) { 
+             window.sparkScene.remove(window.sparkSplat); 
+             window.sparkSplat.dispose?.(); 
+             window.sparkSplat = null;
+           }
+
+          if (ext === "splat") {
+            console.log("Loading .splat with fileBytes + enum...");
+            try {
+              const buffer = await file.arrayBuffer();
+              splat = new SplatMesh({
+                fileBytes: new Uint8Array(buffer),
+                fileType: SplatFileType.SPLAT
+              });
+              splat.quaternion.set(1, 0, 0, 0);
+              splat.rotateZ(Math.PI);
+              scene.add(splat);
+                           await splat.initialized;
+             window.splat = splat;
+             window.sparkSplat = splat; // Spark
+
+             console.log('SplatMesh keys:', Object.keys(splat));
+              if (splat.material) {
+                console.log('material type:', splat.material.type);
+                console.log('material keys:', Object.keys(splat.material));
+              } else {
+                console.log('⚠️ splat.material is undefined');
+              }
+
+              if (splat.material && splat.material.uniforms) {
+                const u = splat.material.uniforms;
+                for (const k in u){
+                  console.log(k, '→', u[k].value);
+                }
+              } else {
+                console.log('⚠️ splat.material.uniforms is undefined');
+              }
+              if (splat.packedSplats) {
+                const p = splat.packedSplats;
+                console.log("packedSplats keys →", Object.keys(p));
+                
+                const scaleKey = Object.keys(p).find(k => /scale/i.test(k));
+                const rotKey = Object.keys(p).find(k => /rot/i.test(k));
+                
+                if (scaleKey && rotKey && p[scaleKey] && p[rotKey]) {
+                  console.log("scaleX (5):", Array.from(p[scaleKey].slice(0,5)));
+                  console.log("rotX   (5):", Array.from(p[rotKey].slice(0,5)));
+                } else {
+                  console.log("⚠️  scale/rot ，");
+                }
+              } else {
+                console.log("⚠️ splat.packedSplats ");
+              }
+
+            } catch (err) {
+              console.error("❌ Failed to load .splat:", err);
+            }
+            
+            // 🎯 .splat
+            if (!window.sparkBbox || window.sparkBbox[0] === -9999) {
+              window.sparkBbox = [-9999, 9999, -9999, 9999, -0.05, 0.05, -0.05, 0.05];
+              console.log('🎯 .splatbbox:', window.sparkBbox);
+            }
+            if (!window.sparkFocalBounds) {
+              window.sparkFocalBounds = [1441, 999999999999999000];
+              console.log('🎯 .splatfocal:', window.sparkFocalBounds);
+            }
+            if (!window.sparkRadius) {
+              window.sparkRadius = 0.1;
+              console.log('🎯 .splat:', window.sparkRadius);
+            }
+
+          } else {
+            const url = URL.createObjectURL(file);
+            const fileType = {spz:SplatFileType.SPZ, ply:SplatFileType.PLY, ksplat:SplatFileType.KSPLAT}[ext];
+            splat = new SplatMesh({ url, fileType });
+            splat.quaternion.set(1, 0, 0, 0);
+            splat.rotateZ(Math.PI);
+            scene.add(splat);
+
+                         await splat.initialized;
+             window.splat = splat;
+             window.sparkSplat = splat; // Spark
+             
+             if (splat.packedSplats) {
+              const p = splat.packedSplats;
+              console.log("packedSplats keys →", Object.keys(p));
+              
+              const scaleKey = Object.keys(p).find(k => /scale/i.test(k));
+              const rotKey = Object.keys(p).find(k => /rot/i.test(k));
+              const box = splat.getBoundingBox(false);
+              console.log('BBox center:', box.getCenter(new THREE.Vector3()));
+              console.log('BBox size  :', box.getSize(new THREE.Vector3()));
+    
+              if (scaleKey && rotKey && p[scaleKey] && p[rotKey]) {
+                console.log("scaleX (5):", Array.from(p[scaleKey].slice(0,5)));
+                console.log("rotX   (5):", Array.from(p[rotKey].slice(0,5)));
+              } else {
+                console.log("⚠️  scale/rot ，");
+              }
+            } else {
+              console.log("⚠️ splat.packedSplats ");
+            }
+
+            setTimeout(()=>URL.revokeObjectURL(url), 5000);
+          }
+          
+          // 🎯 bbox
+          if (!window.sparkBbox || window.sparkBbox[0] === -9999) {
+            // bbox（）
+            window.sparkBbox = [-9999, 9999, -9999, 9999, -0.05, 0.05, -0.05, 0.05];
+            console.log('🎯 bbox:', window.sparkBbox);
+          }
+          if (!window.sparkFocalBounds) {
+            // focal
+            window.sparkFocalBounds = [1441, 999999999999999000];
+            console.log('🎯 focal:', window.sparkFocalBounds);
+          }
+          if (!window.sparkRadius) {
+            // 
+            window.sparkRadius = 0.1;
+            console.log('🎯 :', window.sparkRadius);
+          }
+
+        }
+
+        // 
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = ".splat,.spz,.ply,.ksplat";
+        input.style.display = "none";
+        input.onchange = e => loadFile(e.target.files[0]);
+        document.body.appendChild(input);
+        
+        // 
+        container.addEventListener("dblclick", ()=>input.click());
+        
+        // 
+        container.addEventListener("dragover", e=>{ 
+          e.preventDefault(); 
+          container.style.outline = "4px dashed #0af";
+        });
+        container.addEventListener("dragleave", ()=>container.style.outline = "");
+        container.addEventListener("drop", e => {
+          e.preventDefault();
+          container.style.outline = "";
+          
+          if (e.dataTransfer.files.length) {
+            const files = Array.from(e.dataTransfer.files);
+            let splatFile = null;
+            
+            files.forEach(file => {
+              const ext = file.name.split(".").pop().toLowerCase();
+              if (['splat', 'spz', 'ply', 'ksplat'].includes(ext)) {
+                splatFile = file;
+                console.log(`🎯 splat: ${file.name}`);
+              }
+            });
+            
+            if (splatFile) {
+              loadFile(splatFile);
+            } else {
+              console.warn("⚠️ splat");
+            }
+          }
+        });
+
+        // 
+        let frame=0, last=performance.now(), fps=0;
+        const infoFov   = document.getElementById("spark-fov");
+        const infoFocal = document.getElementById("spark-focal");
+        const infoFps   = document.getElementById("spark-fps");
+        const infoX     = document.getElementById("spark-posX");
+        const infoY     = document.getElementById("spark-posY");
+        const infoZ     = document.getElementById("spark-posZ");
+        const infoRx    = document.getElementById("spark-rotX");
+        const infoRy    = document.getElementById("spark-rotY");
+        const infoRz    = document.getElementById("spark-rotZ");
+        const infoSplatCount = document.getElementById("spark-splatCount");
+        const infoRenderedCount = document.getElementById("spark-renderedCount");
+        const infoSpeedFactor = document.getElementById("spark-speedFactor");
+        const infoOrbitStatus = document.getElementById("spark-orbitStatus");
+        const infoSplitStatus = document.getElementById("spark-splitStatus");
+
+        function fovToFx(fov, h=480){ return (h/2)/Math.tan(THREE.MathUtils.degToRad(fov)/2); }
+        function updateInfo(){
+          frame++;
+          const now=performance.now();
+          if(now-last>=1000){ fps=Math.round(frame*1000/(now-last)); frame=0; last=now; }
+          infoFov.textContent   = camera.fov.toFixed(1)+"°";
+          infoFocal.textContent = fovToFx(camera.fov).toFixed(0)+"px";
+          infoFps.textContent   = fps;
+          infoX.textContent     = camera.position.x.toFixed(2);
+          infoY.textContent     = camera.position.y.toFixed(2);
+          infoZ.textContent     = camera.position.z.toFixed(2);
+          infoRx.textContent    = (camera.rotation.x*180/Math.PI).toFixed(1)+"°";
+          infoRy.textContent    = (camera.rotation.y*180/Math.PI).toFixed(1)+"°";
+          infoRz.textContent    = (camera.rotation.z*180/Math.PI).toFixed(1)+"°";
+          
+          // splat
+          if (window.splatFirst && window.splatSecond) {
+            const firstCount = window.splatFirst.packedSplats ? window.splatFirst.packedSplats.numSplats : 0;
+            const secondCount = window.splatSecond.packedSplats ? window.splatSecond.packedSplats.numSplats : 0;
+            const totalCount = firstCount + secondCount;
+            const currentFocal = fovToFx(camera.fov);
+            const useSecondSplat = currentFocal > (window.sparkSplitThreshold || 3000);
+            const renderedCount = useSecondSplat ? secondCount : firstCount;
+            
+            infoSplatCount.textContent = totalCount;
+            infoRenderedCount.textContent = renderedCount;
+          } else if (splat && splat.packedSplats) {
+            infoSplatCount.textContent = splat.packedSplats.numSplats || 0;
+            infoRenderedCount.textContent = splat.packedSplats.numSplats || "?";
+          } else {
+            infoSplatCount.textContent = "0";
+            infoRenderedCount.textContent = "?";
+          }
+          
+          const speedFactor = getSpeedFactor();
+          infoSpeedFactor.textContent = speedFactor.toFixed(2);
+          
+          infoOrbitStatus.textContent = orbitMode ? "ON" : "OFF";
+          
+          // 
+          if (window.splatFirst && window.splatSecond) {
+            const currentFocal = fovToFx(camera.fov);
+            const useSecondSplat = currentFocal > (window.sparkSplitThreshold || 3000);
+            infoSplitStatus.textContent = useSecondSplat ? "SECOND" : "FIRST";
+          } else {
+            infoSplitStatus.textContent = "OFF";
+          }
+        }
+
+                 //  -  
+         document.addEventListener("sparkKeyDown", e=>{
+           const keyCode = e.detail.code;
+           
+           if(keyCode==="KeyV"){
+             const currentFocal = fovToFx(camera.fov);
+             const maxFocal = window.sparkFocalBounds ? window.sparkFocalBounds[1] : 30000000;
+             const newFocal = Math.min(currentFocal * 1.05, maxFocal);
+             const newFov = 2 * Math.atan((480/2) / newFocal) * 180 / Math.PI;
+             camera.fov = newFov;
+             camera.updateProjectionMatrix();
+           }
+           if(keyCode==="KeyB"){
+             const currentFocal = fovToFx(camera.fov);
+             const minFocal = window.sparkFocalBounds ? window.sparkFocalBounds[0] : 1441;
+             const newFocal = Math.max(currentFocal / 1.05, minFocal);
+             const newFov = 2 * Math.atan((480/2) / newFocal) * 180 / Math.PI;
+             camera.fov = newFov;
+             camera.updateProjectionMatrix();
+           }
+         });
+
+        // 
+        renderer.setAnimationLoop(()=>{
+          controls.update(camera);
+          updateInfo();
+          
+          // 🎯 focal lengthsplat
+          const currentFocal = fovToFx(camera.fov);
+          const useSecondSplat = currentFocal > (window.sparkSplitThreshold || 3000);
+          
+          if (window.splatFirst && window.splatSecond) {
+            window.splatFirst.visible = true; //!useSecondSplat; // focal ≤ threshold targetSplats
+            window.splatSecond.visible = true; //useSecondSplat;  // focal > threshold 
+          }
+          
+          renderer.render(scene,camera);
+        });
+
+          // 
+          function resizeRenderer() {
+            const rect = container.getBoundingClientRect();
+            const width = rect.width || 600;
+            const height = rect.height || 350;
+           
+           // canvas
+           canvas.width = width;
+           canvas.height = height;
+           
+           camera.aspect = width / height;
+           camera.updateProjectionMatrix();
+           renderer.setSize(width, height);
+         }
+
+        //  
+        const resizeObserver = new ResizeObserver(resizeRenderer);
+        resizeObserver.observe(container);
+      }
+
+              // 
+        document.addEventListener('DOMContentLoaded', function() {
+          // DOM
+          setTimeout(initSparkRenderer, 100);
+        });
+        
+                 // 🎯 
+         // 🎯 复位Scale按钮到Scale 0的函数
+         function resetScaleButtons() {
+           document.querySelectorAll('.scale-button').forEach(btn => btn.classList.remove('active'));
+           const scale0Button = document.querySelector('.scale-button[data-scale="0"]');
+           if (scale0Button) {
+             scale0Button.classList.add('active');
+           }
+           console.log('🎯 Scale按钮已复位到Scale 0');
+         }
+
+         function initButtonHandlers() {
+           const buttons = document.querySelectorAll('.button:not(.scale-button), .button-img');
+           let currentActiveButton = null;
+
+           buttons.forEach(button => {
+             button.addEventListener('click', function(e) {
+               // ，
+               e.stopPropagation();
+               e.preventDefault();
+               
+               if (currentActiveButton !== this) {
+                // Remove active class from all buttons
+                buttons.forEach(btn => btn.classList.remove('active'));
+
+                // Add active class to the clicked button
+                this.classList.add('active');
+
+                currentActiveButton = this;
+
+                // 🎯 复位Scale按钮到Scale 0
+                resetScaleButtons();
+
+                // Call the function to handle the active button change
+                 if (this.dataset.url) {
+                   handleSparkButtonChange(this.dataset.url);
+                 } else {
+                   handleSparkClear();
+                 }
+               }
+               
+               // 🎯 body
+               setTimeout(() => {
+                 document.body.focus();
+               }, 50);
+             });
+           });
+         }
+
+         // 🎯 
+         function smoothTransitionToCamera(targetSettings, duration = 2000) {
+           if (!window.sparkCamera) {
+             console.warn('🎯 ');
+             return;
+           }
+
+           // fovToFx
+           function fovToFx(fov, h = 480) { 
+             return (h/2)/Math.tan(THREE.MathUtils.degToRad(fov)/2); 
+           }
+
+           // （）
+           window.sparkCameraTransitioning = true;
+
+           const startTime = Date.now();
+           const startPosition = {
+             x: window.sparkCamera.position.x,
+             y: window.sparkCamera.position.y,
+             z: window.sparkCamera.position.z
+           };
+           const startFocal = fovToFx(window.sparkCamera.fov);
+           const startYaw = window.sparkLocalYaw || 0;
+           const startPitch = window.sparkLocalPitch || 0;
+
+           const targetPosition = targetSettings.position;
+           const targetFocal = targetSettings.focal;
+           // yawpitch
+           const targetYaw = targetSettings.yaw;
+           const targetPitch = targetSettings.pitch;
+           // 
+           if (targetSettings.orbitRadius !== undefined) {
+             window.sparkOrbitRadius = targetSettings.orbitRadius;
+             console.log('🎯 :', window.sparkOrbitRadius);
+           }
+          // 
+          if (targetSettings.radius !== undefined) {
+            window.sparkRadius = targetSettings.radius;
+            console.log('🎯 :', window.sparkRadius);
+          }
+          // 🎯 更新bbox（包含yaw/pitch限制）
+          if (targetSettings.bbox !== undefined) {
+            window.sparkBbox = targetSettings.bbox;
+            console.log('🎯 更新bbox (包含yaw/pitch限制):', window.sparkBbox);
+          }
+
+           function animate() {
+             const currentTime = Date.now();
+             const elapsed = currentTime - startTime;
+             const progress = Math.min(elapsed / duration, 1);
+             
+             // easeInOutQuad
+             const easeProgress = progress < 0.5 
+               ? 2 * progress * progress 
+               : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
+             // 
+             window.sparkCamera.position.x = startPosition.x + (targetPosition[0] - startPosition.x) * easeProgress;
+             window.sparkCamera.position.y = startPosition.y + (targetPosition[1] - startPosition.y) * easeProgress;
+             window.sparkCamera.position.z = startPosition.z + (targetPosition[2] - startPosition.z) * easeProgress;
+
+             // focal length
+             const currentFocal = startFocal + (targetFocal - startFocal) * easeProgress;
+             const newFov = 2 * Math.atan((480/2) / currentFocal) * 180 / Math.PI;
+             window.sparkCamera.fov = newFov;
+             window.sparkCamera.updateProjectionMatrix();
+
+             // yawpitch0
+             const currentYaw = startYaw + (targetYaw - startYaw) * easeProgress;
+             const currentPitch = startPitch + (targetPitch - startPitch) * easeProgress;
+             
+             // 
+             window.updateLocalRotation(currentYaw, currentPitch);
+            
+             if (progress < 1) {
+               requestAnimationFrame(animate);
+             } else {
+               // ，0
+              //  window.updateLocalRotation(0, 0);
+               
+               window.sparkCameraTransitioning = false;
+               console.log(`🎯 : [${targetPosition}], Focal: ${targetFocal}, Yaw: 0, Pitch: 0`);
+             }
+           }
+
+           animate();
+         }
+
+         // 🎯 Scale
+         function getScaleSettings(scale) {
+           // URL
+           const activeButton = document.querySelector('.button-img.active, .button.active');
+           let sceneType = 'default';
+           
+           if (activeButton && activeButton.dataset.url) {
+             const url = activeButton.dataset.url;
+             if (url.includes('ladybug')) sceneType = 'ladybug';
+             else if (url.includes('beetle')) sceneType = 'beetle';
+             else if (url.includes('bird')) sceneType = 'bird';
+             else if (url.includes('fish')) sceneType = 'fish';
+             else if (url.includes('lego')) sceneType = 'lego';
+             else if (url.includes('niu')) sceneType = 'niu';
+             else if (url.includes('conch')) sceneType = 'conch';
+           }
+           
+             // Scale
+             const scaleSettings = {
+            default: {
+                '0': { position: [0.0, 0.0, 0.0], focal: 2468, yaw: 0, pitch: 0, orbitRadius: 0.05, radius: 0.05, bbox: [-9999, 9999, -9999, 9999, -0.05, 0.05, -0.05, 0.05] },
+                '1': { position: [0.0, 0.0, 0.0], focal: 11743, yaw: -0.003139334171005701, pitch: 0.00034881490788952205, orbitRadius: 0.1, radius: 0.1, bbox: [-0.015, 0.015, -9999, 9999, -0.01, 0.01, -0.01, 0.01] },
+                '2': { position: [0.0, 0.0, 0.0], focal: 43288, yaw: -0.002512445814401998, pitch: 0.0013641680853485442, orbitRadius: 0.1, radius: 0.03, bbox: [-0.01, 0.01, -9999, 9999, 0.0003641680853485442, 0.0023641680853485442, -0.003512445814401998, -0.001512445814401998]}
+              },
+              ladybug: {
+                '0': { position: [0.0, 0.0, 0.0], focal: 1441, yaw: 0, pitch: 0, orbitRadius: 0.3, radius: 0.1, bbox: [-9999, 9999, -9999, 9999, -0.05, 0.05, -0.05, 0.05] },
+                '1': { position: [0.0, 0.0, 0.0], focal: 4041, yaw: 0, pitch: 0, orbitRadius: 0.2, radius: 0.1, bbox: [-9999, 9999, -9999, 9999, -0.01, 0.01, -0.01, 0.01] },
+                '2': { position: [0.0, 0.0, 0.0], focal: 43841, yaw: 0, pitch: 0, orbitRadius: 0.2, radius: 0.1, bbox: [-0.02, 0.02, -9999, 9999, -0.001, 0.001, -0.001, 0.001] }
+              },
+              bird: {
+                '0': { position: [0.0, 0.0, 0.0], focal: 1441, yaw: 0, pitch: 0, orbitRadius: 0.1, radius: 0.1, bbox: [-9999, 9999, -9999, 9999, -0.05, 0.05, -0.05, 0.05] },
+                '1': { position: [0.0, 0.0, 0.0], focal: 7569, yaw: 0.0062229537007740775, pitch: 0.0024350688394333335, orbitRadius: 0.1, radius: 0.1, bbox: [-9999, 9999, -9999, 9999, -0.01, 0.01, -0.01, 0.01] },
+                '2': { position: [0.0, 0.0, 0.0], focal: 91141, yaw: 0.004915482008965006, pitch: 0.0034360640296216883, orbitRadius: 0.1, radius: 0.1, bbox: [-0.02, 0.02, -9999, 9999, 0.0024360640296216883, 0.0044360640296216883, 0.003915482008965006, 0.005915482008965006] }
+              },
+              conch:  {
+                '0': { position: [0.0, 0.0, 0.0], focal: 2468, yaw: 0, pitch: 0, orbitRadius: 0.05, radius: 0.05, bbox: [-9999, 9999, -9999, 9999, -0.05, 0.05, -0.05, 0.05] },
+                '1': { position: [0.0, 0.0, 0.0], focal: 11743, yaw: -0.003139334171005701, pitch: 0.00034881490788952205, orbitRadius: 0.1, radius: 0.1, bbox: [-0.015, 0.015, -9999, 9999, -0.01, 0.01, -0.01, 0.01] },
+                '2': { position: [0.0, 0.0, 0.0], focal: 43288, yaw: -0.002512445814401998, pitch: 0.0013641680853485442, orbitRadius: 0.1, radius: 0.03, bbox: [-0.01, 0.01, -9999, 9999, 0.0003641680853485442, 0.0023641680853485442, -0.003512445814401998, -0.001512445814401998]}
+              },
+              fish: {
+                '0': { position: [0, 0, 0], focal: 1024, yaw: 0, pitch: 0, orbitRadius: 0.5, radius: 0.2, bbox: [-9999, 9999, -9999, 9999, -0.12, 0.12, -0.12, 0.12] },
+                '1': { position: [0.1, 0.05, -1.0], focal: 800, yaw: 0.15, pitch: -0.05, orbitRadius: 0.3, radius: 0.15, bbox: [-9999, 9999, -9999, 9999, -0.08, 0.08, -0.18, 0.18] },
+                '2': { position: [-0.08, 0.1, -1.5], focal: 600, yaw: -0.12, pitch: 0.08, orbitRadius: 0.2, radius: 0.08, bbox: [-9999, 9999, -9999, 9999, -0.05, 0.05, -0.15, 0.15] }
+              },
+              lego: {
+                '0': { position: [0.0, 0, -3.2], focal: 1700, yaw: 0, pitch: 0, orbitRadius: 0.8, radius: 0.25, bbox: [-9999, 9999, -9999, 9999, -0.15, 0.15, -0.15, 0.15] },
+                '1': { position: [0.1, 0.03, -2.5], focal: 1200, yaw: 0.1, pitch: -0.03, orbitRadius: 0.5, radius: 0.18, bbox: [-9999, 9999, -9999, 9999, -0.08, 0.08, -0.12, 0.12] },
+                '2': { position: [-0.05, 0.08, -2.8], focal: 1000, yaw: -0.08, pitch: 0.05, orbitRadius: 0.3, radius: 0.12, bbox: [-9999, 9999, -9999, 9999, -0.05, 0.05, -0.1, 0.1] }
+              },
+              niu: {
+                '0': { position: [0, 0, 0], focal: 1024, yaw: 0, pitch: 0, orbitRadius: 0.4, radius: 0.1, bbox: [-9999, 9999, -9999, 9999, -0.1, 0.1, -0.1, 0.1] },
+                '1': { position: [0.05, 0.02, -0.4], focal: 800, yaw: 0.08, pitch: -0.02, orbitRadius: 0.3, radius: 0.08, bbox: [-9999, 9999, -9999, 9999, -0.06, 0.06, -0.12, 0.12] },
+                '2': { position: [-0.03, 0.05, -0.6], focal: 600, yaw: -0.1, pitch: 0.04, orbitRadius: 0.2, radius: 0.05, bbox: [-9999, 9999, -9999, 9999, -0.04, 0.04, -0.12, 0.12] }
+              },
+              wo: {
+                '0': { position: [0, 0, 0], focal: 900, yaw: 0, pitch: 0, orbitRadius: 0.6, radius: 0.13, bbox: [-9999, 9999, -9999, 9999, -0.12, 0.12, -0.12, 0.12] },
+                '1': { position: [0.08, 0.03, -0.8], focal: 700, yaw: 0.1, pitch: -0.03, orbitRadius: 0.4, radius: 0.1, bbox: [-9999, 9999, -9999, 9999, -0.08, 0.08, -0.12, 0.12] },
+                '2': { position: [-0.04, 0.06, -1.0], focal: 500, yaw: -0.08, pitch: 0.06, orbitRadius: 0.3, radius: 0.07, bbox: [-9999, 9999, -9999, 9999, -0.06, 0.06, -0.1, 0.1] }
+              }
+ 
+             };
+           
+           const settings = scaleSettings[sceneType] && scaleSettings[sceneType][scale] 
+             ? scaleSettings[sceneType][scale] 
+             : scaleSettings.default[scale];
+             
+           console.log(`🎯 : ${sceneType}, Scale: ${scale}`, settings);
+           console.log(`🎯 : ${settings.orbitRadius}, : ${settings.radius}, : [${settings.position}], Focal: ${settings.focal}, Yaw: ${settings.yaw}, Pitch: ${settings.pitch}`);
+           return settings;
+         }
+
+         // 🎯 Scale
+         function initScaleButtons() {
+           const scaleButtons = document.querySelectorAll('.scale-button');
+           
+           scaleButtons.forEach(button => {
+             button.addEventListener('click', function(e) {
+               e.stopPropagation();
+               e.preventDefault();
+               
+               if (!window.sparkCamera) {
+                 console.warn('🎯 ');
+                 return;
+               }
+               
+               const scale = this.dataset.scale;
+               
+               // scaleactive
+               scaleButtons.forEach(btn => btn.classList.remove('active'));
+               // active
+               this.classList.add('active');
+               
+               // Scale
+               let targetSettings = getScaleSettings(scale);
+               console.log(`🎯  Scale ${scale}`);
+               
+               // （rotation）
+               smoothTransitionToCamera(targetSettings);
+               
+               // body
+               setTimeout(() => {
+                 document.body.focus();
+               }, 50);
+             });
+           });
+         }
+
+                 // 🎯 Spark
+         async function handleSparkButtonChange(activeButtonUrl) {
+           console.log(`🎯 Spark: ${activeButtonUrl}`);
+           
+           // splat
+           if (window.sparkSplat) {
+             window.sparkScene.remove(window.sparkSplat);
+             window.sparkSplat.dispose?.();
+             window.sparkSplat = null;
+           }
+           
+           // splat
+           if (window.splatFirst) {
+             window.sparkScene.remove(window.splatFirst);
+             window.splatFirst.dispose?.();
+             window.splatFirst = null;
+           }
+           if (window.splatSecond) {
+             window.sparkScene.remove(window.splatSecond);
+             window.splatSecond.dispose?.();
+             window.splatSecond = null;
+           }
+
+           // 🎯 splat
+           let initialPosition = [0, 0, 0];
+           let initialFocal = 1441;
+           let initialYaw = 0;
+           let initialPitch = 0;
+           let initialRotation = [0, 0, 0]; // [X, Y, Z] 
+           let bbox = [-9999, 9999, -9999, 9999, -0.01, 0.01, -0.01, 0.01]; // : [minx, maxx, minz, maxz, minpitch, maxpitch, minyaw, maxyaw]
+           let focalBounds = [1441, 999999999999999000]; // Focal: [minFocal, maxFocal]
+           let targetPosition = [0, 0, -1.2]; // 
+           let splitThreshold = 3000; // 
+           let targetSplats = 5950100; // 
+           let radius = 9999; // 
+           let orbitRadius = 0.1; // 🎯 轨道半径
+           
+            if (activeButtonUrl.includes('ladybug')) {
+              initialPosition = [0.0, 0.0, 0.0];
+              initialFocal = 1441;
+              bbox = [-9999, 9999, -9999, 9999, -0.05, 0.05, -0.05, 0.05];
+              //focalBounds = [800, 2500];
+              targetPosition = [-5.1574e-3, -4.0808e-3, -6.8847]; // 
+              splitThreshold = 2900;
+              targetSplats = 59500001;
+              radius = 0.15; // 
+            }
+           else if (activeButtonUrl.includes('bird')) {
+              initialPosition = [0, 0, 0];
+              initialFocal = 1441;
+              // focalBounds = [800, 1500];
+              bbox = [-9999, 9999, -9999, 9999, -0.05, 0.05, -0.05, 0.05];
+              targetPosition = [-0.0306, 0.0250, -6.3509]; // 
+              splitThreshold = 2500;
+              targetSplats = 800000000;
+              radius = 0.12; // 
+            }
+            else if (activeButtonUrl.includes('conch')) {
+               initialPosition = [0.014332685967334207, 0, -0.04401724574130725];
+               initialFocal = 2468;
+               
+               // focalBounds = [800, 1500];
+               bbox = [-9999, 9999, -9999, 9999, -0.05, 0.05, -0.05, 0.05];
+               targetPosition = [0.0188, 0.0105, -9.3264]; // 
+               splitThreshold = 2800;
+               targetSplats = 70000;
+               radius = 0.1; // 
+               orbitRadius = 0.05; // 🎯 conch场景的轨道半径
+             }
+           else if (activeButtonUrl.includes('fish')) {
+ initialPosition = [0, 0, 0];
+ initialFocal = 1024;
+ // focalBounds = [800, 1500];
+ targetPosition = [0, 0, -2.0]; // 
+ splitThreshold = 3000;
+ targetSplats = 100000;
+ radius = 0.2; // 
+}
+           else if (activeButtonUrl.includes('lego')) {
+ initialPosition = [0.0, 0, -3.2];
+ initialFocal = 1700;
+ bbox = [-0.2, 0.3, -3.2, 0.2, -0.2, 0.16, -0.12, 0.3];
+ // focalBounds = [1200, 2200];
+ targetPosition = [0.0929, 0.0223, -9.811]; // 
+ splitThreshold = 3200;
+ targetSplats = 120000;
+ radius = 0.25; // 
+}
+           else if (activeButtonUrl.includes('niu')) {
+ initialPosition = [0, 0, 0];
+ initialFocal = 1024;
+ bbox = [-9999, 9999, -9999, 9999, -0.03, 0.3, -9999, 9999];
+ // focalBounds = [800, 1500];
+ targetPosition = [0, 0, -0.8]; // 
+ splitThreshold = 2700;
+ targetSplats = 90000;
+ radius = 0.1; // 
+}
+           else if (activeButtonUrl.includes('wo')) {
+ initialPosition = [0, 0, 0];
+ initialFocal = 900;
+ bbox = [-9999, 9999, -9999, 9999, -0.1, 0.35, -9999, 9999];
+ // focalBounds = [600, 1200];
+ targetPosition = [0, 0, -1.2]; // 
+ splitThreshold = 2600;
+ targetSplats = 110000;
+ radius = 0.13; // wo
+}
+           else {
+              initialPosition = [0, 0, 0];
+              initialFocal = 1024;
+              // focalBounds = [800, 1500];
+              targetPosition = [-0.0306, 0.0250, -6.3509]; // 
+              splitThreshold = 2500;
+              targetSplats = 800000000;
+              radius = 0.15; // 
+            }
+
+           try {
+             // splat
+             const response = await fetch(activeButtonUrl, {
+               mode: "cors",
+               credentials: "omit",
+             });
+             
+             if (response.status !== 200) {
+               throw new Error(`HTTP ${response.status}: Unable to load ${activeButtonUrl}`);
+             }
+             
+             const arrayBuffer = await response.arrayBuffer();
+             const originalBytes = new Uint8Array(arrayBuffer);
+             const totalBytes = originalBytes.length;
+             
+             // targetSplats
+             // splat32 (position 12 + scale 12 + rotation 4 + color 4)
+             const bytesPerSplat = 32;
+             const targetBytes = targetSplats * bytesPerSplat;
+             const halfBytes = Math.min(targetBytes, totalBytes);
+             
+             const firstHalfBytes = originalBytes.slice(0, halfBytes); // targetSplats
+             const secondHalfBytes = originalBytes.slice(halfBytes); // 
+             
+             console.log(`🎯 : ${totalBytes} → ${targetSplats}:${firstHalfBytes.length}, :${secondHalfBytes.length}`);
+             console.log(`🎯 Debug - targetSplats: ${targetSplats}, targetBytes: ${targetBytes}, halfBytes: ${halfBytes}`);
+             
+             const currentFileType = SplatFileType.SPLAT;
+             
+             // splat
+             if (window.splatFirst) { window.sparkScene.remove(window.splatFirst); window.splatFirst.dispose?.(); }
+             if (window.splatSecond) { window.sparkScene.remove(window.splatSecond); window.splatSecond.dispose?.(); }
+             
+             // targetSplatssplat
+             window.splatFirst = new SplatMesh({
+               fileBytes: firstHalfBytes,
+               fileType: currentFileType
+             });
+             window.splatFirst.quaternion.set(1, 0, 0, 0);
+             window.splatFirst.rotateZ(Math.PI);
+             window.sparkScene.add(window.splatFirst);
+             
+             // splat
+             window.splatSecond = new SplatMesh({
+               fileBytes: secondHalfBytes,
+               fileType: currentFileType
+             });
+             window.splatSecond.quaternion.set(1, 0, 0, 0);
+             window.splatSecond.rotateZ(Math.PI);
+             window.sparkScene.add(window.splatSecond);
+             
+             // splat
+             await Promise.all([window.splatFirst.initialized, window.splatSecond.initialized]);
+             
+             // 
+             // window.splatFirst  window.splatSecond 
+             window.sparkSplat = window.splatFirst; // 
+             console.log('🎯 Splat:', window.sparkSplat);
+             
+             // 🎯 
+             if (window.sparkCamera) {
+               // 
+               window.sparkCamera.position.set(initialPosition[0], initialPosition[1], initialPosition[2]);
+               
+               // Rotation XYZ
+               window.sparkCamera.rotation.set(
+                 initialRotation[0] * Math.PI / 180, // X
+                 initialRotation[1] * Math.PI / 180, // Y
+                 initialRotation[2] * Math.PI / 180  // Z
+               );
+               
+               // FOV (focal length)
+               const fov = 2 * Math.atan((480/2) / initialFocal) * 180 / Math.PI;
+               window.sparkCamera.fov = fov;
+               window.sparkCamera.updateProjectionMatrix();
+               
+               console.log(`🎯 : [${initialPosition}], [${initialRotation}], FOV: ${fov.toFixed(1)}°, Focal: ${initialFocal}`);
+             }
+             
+             // 🎯 
+             yaw = initialYaw;
+             pitch = initialPitch;
+             window.sparkYaw = yaw;
+             window.sparkPitch = pitch;
+             
+        // 🎯 focal
+        window.sparkBbox = bbox;
+        window.sparkFocalBounds = focalBounds;
+        window.sparkTargetPosition = targetPosition;
+        window.sparkSplitThreshold = splitThreshold;
+        window.sparkRadius = radius; // 🎯
+       window.sparkOrbitRadius = orbitRadius; // 🎯 设置轨道半径 
+         
+         
+         console.log(`🎯 : [${bbox.join(', ')}]`);
+         console.log(`🎯 focal: [${focalBounds.join(', ')}]`);
+         console.log(`🎯 : [${targetPosition.join(', ')}]`);
+         console.log(`🎯 : ${splitThreshold}`);
+         console.log(`🎯 : ${radius}`);
+             
+             
+             // 🎯 
+             setTimeout(() => {
+               document.body.focus();
+               console.log('🎯 ');
+             }, 100);
+             
+           } catch (error) {
+             console.error('❌ Spark:', error);
+           }
+         }
+
+                 // 🎯 Spark
+         function handleSparkClear() {
+           console.log('🎯 Spark');
+           
+           if (window.sparkSplat) {
+             window.sparkScene.remove(window.sparkSplat);
+             window.sparkSplat.dispose?.();
+             window.sparkSplat = null;
+           }
+           
+           // splat
+           if (window.splatFirst) {
+             window.sparkScene.remove(window.splatFirst);
+             window.splatFirst.dispose?.();
+             window.splatFirst = null;
+           }
+           if (window.splatSecond) {
+             window.sparkScene.remove(window.splatSecond);
+             window.splatSecond.dispose?.();
+             window.splatSecond = null;
+           }
+           
+           // 🎯 
+           if (window.sparkCamera) {
+             window.sparkCamera.position.set(0, 0, 0);
+             window.sparkCamera.rotation.set(0, 0, 0);
+             window.sparkCamera.fov = 2 * Math.atan((480/2) / 1024) * 180 / Math.PI;
+             window.sparkCamera.updateProjectionMatrix();
+           }
+           
+           // 🎯 
+           yaw = 0;
+           pitch = 0;
+           orbitMode = false;
+           activeKeys = [];
+           
+           // 
+           window.sparkYaw = yaw;
+           window.sparkPitch = pitch;
+           window.sparkOrbitMode = orbitMode;
+           
+           // 🎯 focal
+           window.sparkBbox = [-9999, 9999, -9999, 9999, -0.05, 0.05, -0.05, 0.05];
+          //  window.sparkFocalBounds = [100, 3000];
+          //  window.sparkRadius = 9999; // 
+           
+           console.log('🎯 : [0,0,0], FOV: 26.3°, Yaw: 0, Pitch: 0, focal');
+           
+           console.log('🎯 ');
+         }
+
+                 // 
+         document.addEventListener('DOMContentLoaded', function() {
+           setTimeout(() => {
+             initButtonHandlers();
+             initScaleButtons();
+           }, 500);
+         });
+         
+         // 
+         window.addEventListener('load', function() {
+           setTimeout(() => {
+             console.log('🎯 Window load ，Scale');
+             initScaleButtons();
+           }, 1000);
+         });
+         
+         
+         // 🎯  ，
+         document.addEventListener('keydown', (e) => {
+           // 
+           const controlKeys = ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyV', 'KeyB', 
+                               'KeyI', 'KeyJ', 'KeyK', 'KeyL'];
+           
+           if (controlKeys.includes(e.code)) {
+             // 🎯 按键高亮效果
+             const keyBtn = document.querySelector(`.key-btn[data-key="${e.code}"]`);
+             if (keyBtn) {
+               keyBtn.style.background = 'rgba(0, 123, 255, 0.8)';
+               keyBtn.style.borderColor = 'rgba(0, 123, 255, 1)';
+               keyBtn.style.boxShadow = '0 0 10px rgba(0, 123, 255, 0.5)';
+               keyBtn.style.transform = 'scale(0.95)';
+             }
+             
+             // ，
+             if (!document.activeElement || 
+                 (document.activeElement.tagName !== 'INPUT' && 
+                  document.activeElement.tagName !== 'TEXTAREA' && 
+                  document.activeElement.contentEditable !== 'true')) {
+               
+               // ，Spark
+               const customEvent = new CustomEvent('sparkKeyDown', { 
+                 detail: { code: e.code, key: e.key } 
+               });
+               document.dispatchEvent(customEvent);
+             }
+           }
+         });
+         
+         // 🎯 按键释放效果
+         document.addEventListener('keyup', (e) => {
+           const controlKeys = ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyV', 'KeyB', 
+                               'KeyI', 'KeyJ', 'KeyK', 'KeyL'];
+           
+           if (controlKeys.includes(e.code)) {
+             // 🎯 恢复按键样式
+             const keyBtn = document.querySelector(`.key-btn[data-key="${e.code}"]`);
+             if (keyBtn) {
+               keyBtn.style.background = 'rgba(255,255,255,0.1)';
+               keyBtn.style.borderColor = 'rgba(255,255,255,0.3)';
+               keyBtn.style.boxShadow = 'none';
+               keyBtn.style.transform = 'scale(1)';
+             }
+           }
+         });
+    </script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const videos = document.querySelectorAll('video[muted][loop]');
+
+            const options = {
+                root: null, // sets the framing element to the viewport
+                threshold: 0.5 // at least 50% of the video must be visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.play();
+                    } else {
+                        entry.target.pause();
+                        entry.target.currentTime = 0; // Reset the video to the beginning
+                    }
+                });
+            }, options);
+
+            videos.forEach(video => {
+                observer.observe(video);
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>
