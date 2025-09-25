@@ -399,15 +399,15 @@
                   </div>
                   <div class="teaser-item my-2" id="buttonContainer">
                       <button class="button active">Clear</button>
-                      <button class="button-img" data-url="https://hf-mirror.com/datasets/anonymous1273891/wonderzoom1/resolve/main/ladybug_spark.splat?download=true">
-                          <img src="assets/images/complete/sunf.png" alt="Beach" style="width: 100%; height: auto;">
-                      </button>
-                      <button class="button-img" data-url="https://hf-mirror.com/datasets/anonymous1273891/wonderzoom1/resolve/main/bird_spark.splat?download=true">
-                          <img src="assets/images/complete/street1.png" alt="Coral" style="width: 100%; height: auto;">
-                      </button>
-                      <button class="button-img" data-url="https://hf-mirror.com/datasets/anonymous1273891/wonderzoom1/resolve/main/conch_spark.splat?download=true">
-                          <img src="assets/images/complete/beach2.png" alt="Sunflower" style="width: 100%; height: auto;">
-                      </button>
+                       <button class="button-img" data-url="https://huggingface.co/datasets/anonymous1273891/wonderzoom1/resolve/main/ladybug_spark.splat?download=true">
+                           <img src="assets/images/complete/sunf.png" alt="Beach" style="width: 100%; height: auto;">
+                       </button>
+                       <button class="button-img" data-url="https://huggingface.co/datasets/anonymous1273891/wonderzoom1/resolve/main/bird_spark.splat?download=true">
+                           <img src="assets/images/complete/street1.png" alt="Coral" style="width: 100%; height: auto;">
+                       </button>
+                       <button class="button-img" data-url="https://huggingface.co/datasets/anonymous1273891/wonderzoom1/resolve/main/conch_spark.splat?download=true">
+                           <img src="assets/images/complete/beach2.png" alt="Sunflower" style="width: 100%; height: auto;">
+                       </button>
                       <!-- <button class="button-img" data-url="https://hf-mirror.com/datasets/TmaKiss/sp/resolve/main/gau_fish_complete.splat?download=true">
                           <img src="assets/images/complete/street.png" alt="Street" style="width: 100%; height: auto;">
                       </button>
@@ -1667,17 +1667,21 @@
             }
 
            try {
-             // splat
-             const response = await fetch(activeButtonUrl, {
-               mode: "cors",
-               credentials: "omit",
+             // 使用XMLHttpRequest绕过CORS
+             const arrayBuffer = await new Promise((resolve, reject) => {
+               const xhr = new XMLHttpRequest();
+               xhr.open('GET', activeButtonUrl, true);
+               xhr.responseType = 'arraybuffer';
+               xhr.onload = function() {
+                 if (xhr.status === 200) {
+                   resolve(xhr.response);
+                 } else {
+                   reject(new Error(`HTTP ${xhr.status}: Unable to load ${activeButtonUrl}`));
+                 }
+               };
+               xhr.onerror = () => reject(new Error('Network error'));
+               xhr.send();
              });
-             
-             if (response.status !== 200) {
-               throw new Error(`HTTP ${response.status}: Unable to load ${activeButtonUrl}`);
-             }
-             
-             const arrayBuffer = await response.arrayBuffer();
              const originalBytes = new Uint8Array(arrayBuffer);
              const totalBytes = originalBytes.length;
              
