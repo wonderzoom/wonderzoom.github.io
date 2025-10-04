@@ -186,7 +186,7 @@
             </div>
             <div class="row" id="title">
                 <p class="col text-center text-title">
-                    <em>Cross-scale</em> 3D Scene Generation
+                    Multi-Scale 3D World Generation
                 </p>
             </div>
         </div>
@@ -222,7 +222,7 @@
 
                     <div class="teaser-item">
                       <p class="body-text">
-                          <em>WonderZoom</em> fuses <strong>real‑time rendering</strong> with <strong>multi‑scale 3D world generation</strong>. Starting from a <em>single image</em>, the system represents the scene using <em> Multi-Scale Gaussian Surfels</em> and synthesizes finer details on‑demand as you pan, zoom, or describe new content in text. This lets you dive seamlessly from sweeping landscapes down to microscopic objects while maintaining geometric and stylistic coherence. (Videos below are time‑lapsed recordings of this cross‑scale generation process.)
+                        <b>WonderZoom</b> enables interactive exploration across spatial scales. Users can zoom into any region and specify prompts to generate new fine-scale content while maintaining cross-scale consistency. Here we show three zoom-in sequences
                       </p>
                   </div>
                 </div>
@@ -240,13 +240,8 @@
             <div class="row">
                 <div class="col my-3">
                     <p class="text-header">
-                        Generated Virtual World<br>
+                        Generated Multi-Scale Worlds<br>
                     </p>
-                    <div class="teaser-item">
-                        <p class="body-text">
-                            Here are some examples of generated worlds with different camera path styles: <b>zoom-in</b>, <b>curvy</b>, and <b>Rotating</b>.
-                        </p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -407,8 +402,7 @@
                   <div class="teaser-item">
                       <p class="body-text">
                           <b>Keyboard:</b> Move by "W/A/S/D", look around by "I/J/K/L". Rotate around the center point by "F". Click the button "Scale 0/1/2" to zoom-in/out.<br>
-                          <b>Touch Screen:</b> Move by one-finger drag, look around by two-finger drag. <br>
-                          <b>Note: </b> Clicking an image will automatically download a generated virtual world example from an <b>anonymous source</b>. After loading, please click on the canvas to activate control. The rendering here is done on your device in real-time. <b>Downloading an example (~100MB) may take a while. Since the web renderer does not support our proposed LoD and applies depth quantization, the rendering quality suffers from noticeable degradation.</b>
+                          <b>Note: </b> Clicking an image will automatically download a generated world example from an <b>anonymous source</b>. After loading, please click on the canvas to activate control. The rendering here is done on your device in real-time. <b>Downloading an example (~100MB) may take a while.</b> Since the web renderer does not support our proposed multi-scale representation rendering and it applies depth quantization, <b>the rendering quality is degraded compared to the videos above.</b>
                       </p>
                   </div>
                   <div class="teaser-item my-2" id="buttonContainer">
@@ -542,13 +536,7 @@
                         <img src="assets/images/approach/approach.jpg" class="approach-figure">
                     </div>
                     <p class="body-text" style="margin-top: 1rem;">
-                      <em>WonderZoom</em> begins with a single input image and progressively constructs a hierarchy of 3D scenes covering ever‑finer spatial scales. Two key innovations make this possible:
-                      <br><br>
-                      • <strong>Multi-Scale Gaussian Surfels</strong> – a dynamically updatable representation that lets new fine‑scale surfels be inserted without re‑optimising the entire scene, while still rendering in real time.
-                      <br>
-                      • <strong>Progressive detail synthesizer</strong> – an autoregressive module that leverages image, depth and large‑language models to hallucinate and register novel 3D content whenever the user zooms into a region or issues a text prompt.
-                      <br><br>
-                      These components work together to enable interactive exploration from macro panoramas to micro textures, outperforming prior single‑scale generators in both perceptual quality and scale consistency.
+                      From an input image, we first reconstruct an initial 3D scene. Users specify prompts and camera viewpoints to generate finer-scale content. Our progressive detail synthesizer creates new-scale images, registers depth to maintain geometric consistency, and synthesizes auxiliary views for complete 3D scene creation. Our scale-adaptive Gaussian surfels enable dynamic updates without re-optimization, seamlessly integrating new content while preserving real-time rendering.
                   </p>
                 </div>
             </div>
@@ -1490,10 +1478,10 @@
            
              // Scale
              const scaleSettings = {
-            default: {
-                '0': { position: [0.0, 0.0, 0.0], focal: 2468, yaw: 0, pitch: 0, orbitRadius: 0.05, radius: 0.05, bbox: [-9999, 9999, -9999, 9999, -0.05, 0.05, -0.05, 0.05] },
-                '1': { position: [0.0, 0.0, 0.0], focal: 11743, yaw: -0.003139334171005701, pitch: 0.00034881490788952205, orbitRadius: 0.1, radius: 0.1, bbox: [-0.015, 0.015, -9999, 9999, -0.01, 0.01, -0.01, 0.01] },
-                '2': { position: [0.0, 0.0, 0.0], focal: 43288, yaw: -0.002512445814401998, pitch: 0.0013641680853485442, orbitRadius: 0.1, radius: 0.03, bbox: [-0.01, 0.01, -9999, 9999, 0.0003641680853485442, 0.0023641680853485442, -0.003512445814401998, -0.001512445814401998]}
+            default:  {
+                '0': { position: [0.0, 0.0, 0.0], focal: 1441, yaw: 0, pitch: 0, orbitRadius: 0.1, radius: 0.1, bbox: [-9999, 9999, -9999, 9999, -0.05, 0.05, -0.05, 0.05] },
+                '1': { position: [0.0, 0.0, 0.0], focal: 7569, yaw: 0.0062229537007740775, pitch: 0.0024350688394333335, orbitRadius: 0.1, radius: 0.1, bbox: [-9999, 9999, -9999, 9999, -0.01, 0.01, -0.01, 0.01] },
+                '2': { position: [0.0, 0.0, 0.0], focal: 91141, yaw: 0.004915482008965006, pitch: 0.0034360640296216883, orbitRadius: 0.1, radius: 0.1, bbox: [-0.02, 0.02, -9999, 9999, 0.0024360640296216883, 0.0044360640296216883, 0.003915482008965006, 0.005915482008965006] }
               },
               ladybug: {
                 '0': { position: [0.0, 0.0, 0.0], focal: 1441, yaw: 0, pitch: 0, orbitRadius: 0.3, radius: 0.1, bbox: [-9999, 9999, -9999, 9999, -0.05, 0.05, -0.05, 0.05] },
