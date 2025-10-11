@@ -416,18 +416,14 @@
                        <button class="button-img" data-url="https://huggingface.co/datasets/anonymous1273891/wonderzoom1/resolve/main/conch_shift_spark.splat?download=true">
                            <img src="assets/images/complete/beach2.png" alt="Sunflower" style="width: 100%; height: auto;">
                        </button>
-                      <!-- <button class="button-img" data-url="https://hf-mirror.com/datasets/TmaKiss/sp/resolve/main/gau_fish_complete.splat?download=true">
-                          <img src="assets/images/complete/street.png" alt="Street" style="width: 100%; height: auto;">
-                      </button>
-                      <button class="button-img" data-url="https://hf-mirror.com/datasets/TmaKiss/sp/resolve/main/gau_lego_complete.splat">
-                          <img src="assets/images/complete/tea_garden.jpg" alt="Tea Garden" style="width: 100%; height: auto;">
-                      </button>
-                      <button class="button-img" data-url="https://hf-mirror.com/datasets/TmaKiss/sp/resolve/main/gau_niu_complete.splat">
-                          <img src="assets/images/complete/Tree.png" alt="Tree" style="width: 100%; height: auto;">
-                      </button>
-                      <button class="button-img" data-url="https://hf-mirror.com/datasets/TmaKiss/sp/resolve/main/gau_wo_complete.splat">
-                          <img src="assets/images/complete/wooden.jpg" alt="Wooden" style="width: 100%; height: auto;">
-                      </button> -->
+                    <button class="button-img" data-url="https://huggingface.co/datasets/anonymous1273891/wonderzoom1/resolve/main/butterfly_shift_spark.splat?download=true">
+                        <img src="assets/images/complete/tea_garden2.png" alt="Tree" style="width: 100%; height: auto;">
+                    </button>
+                  </button>
+                  <button class="button-img" data-url="https://huggingface.co/datasets/anonymous1273891/wonderzoom1/resolve/main/fish_shift_spark.splat?download=true">
+                      <img src="assets/images/complete/coral.png" alt="Tree" style="width: 100%; height: auto;">
+                  </button>
+
                   </div>
                   <div id="message"></div>
                   
@@ -657,7 +653,7 @@
       });
       
       import * as THREE from "three";
-      import { SplatMesh, SplatFileType, SparkControls } from "@sparkjsdev/spark";
+      import { SplatMesh, SplatFileType, SparkControls, SparkRenderer } from "@sparkjsdev/spark";
 
       // 🎯 
       let splatFirst = null;  // 50%splat
@@ -743,12 +739,14 @@
         controls.pointerControls.enable = false;
         
         // 🎯 Spark渲染器配置：启用32位精度排序，保持径向距离排序
-        // const sparkRenderer = new SparkRenderer({
-        //   view: {
-        //     sort32: true,        // 启用32位精度排序（减少Z fighting）
-        //     sortRadial: true     // 保持径向距离排序（更好的旋转稳定性）
-        //   }
-        // });
+        const sparkRenderer = new SparkRenderer({
+          renderer,
+          view: {
+            sort32: true,
+            sortRadial: true
+          }
+        });
+        scene.add(sparkRenderer);
         
         // controls
         window.sparkControls = controls;
@@ -1199,7 +1197,7 @@
           // 🎯 为default场景设置world偏移，使其与ladybug场景行为一致
           if (!window.sparkWorldOffset || (window.sparkWorldOffset[0] === 0 && window.sparkWorldOffset[1] === 0 && window.sparkWorldOffset[2] === 0)) {
             // 使用ladybug场景的targetPosition作为default场景的world偏移
-            const defaultWorldOffset = [-0.0306, 0.0250, -6.3509];
+            const defaultWorldOffset = [-0., -0., -9.9911];
             sparkWorldOffset = [...defaultWorldOffset];
             window.sparkWorldOffset = [...defaultWorldOffset];
             console.log('🎯 default场景设置world偏移:', defaultWorldOffset);
@@ -1401,23 +1399,65 @@
                e.preventDefault();
                
                if (currentActiveButton !== this) {
-                // Remove active class from all buttons
-                buttons.forEach(btn => btn.classList.remove('active'));
+                // 🎯 如果正在下载，先取消下载
+                if (isDownloading && currentDownloadXHR) {
+                  console.log('🎯 检测到正在下载，先取消当前下载');
+                  currentDownloadXHR.abort();
+                  currentDownloadXHR = null;
+                  isDownloading = false;
+                  
+                  // 隐藏进度条
+                  const progressContainer = document.getElementById('download-progress-container');
+                  if (progressContainer) {
+                    progressContainer.style.display = 'none';
+                  }
+                }
+                
+                // 🎯 如果当前有加载的场景，先清除
+                if (currentActiveButton && (window.sparkSplat || window.splatFirst || window.splatSecond)) {
+                  console.log('🎯 检测到已加载场景，先清除当前场景');
+                  handleSparkClear();
+                  
+                  // 等待清除完成后再加载新场景
+                  setTimeout(() => {
+                    // Remove active class from all buttons
+                    buttons.forEach(btn => btn.classList.remove('active'));
 
-                // Add active class to the clicked button
-                this.classList.add('active');
+                    // Add active class to the clicked button
+                    this.classList.add('active');
 
-                currentActiveButton = this;
+                    currentActiveButton = this;
 
-                // 🎯 复位Scale按钮到Scale 0
-                resetScaleButtons();
+                    // 🎯 复位Scale按钮到Scale 0
+                    resetScaleButtons();
 
-                // Call the function to handle the active button change
-                 if (this.dataset.url) {
-                   handleSparkButtonChange(this.dataset.url);
-                 } else {
-                   handleSparkClear();
-                 }
+                    // Call the function to handle the active button change
+                    if (this.dataset.url) {
+                      handleSparkButtonChange(this.dataset.url);
+                    } else {
+                      handleSparkClear();
+                    }
+                  }, 100);
+                } else {
+                  // 没有加载场景，直接处理
+                  // Remove active class from all buttons
+                  buttons.forEach(btn => btn.classList.remove('active'));
+
+                  // Add active class to the clicked button
+                  this.classList.add('active');
+
+                  currentActiveButton = this;
+
+                  // 🎯 复位Scale按钮到Scale 0
+                  resetScaleButtons();
+
+                  // Call the function to handle the active button change
+                   if (this.dataset.url) {
+                     handleSparkButtonChange(this.dataset.url);
+                   } else {
+                     handleSparkClear();
+                   }
+                }
                }
                
                // 🎯 body
@@ -1533,7 +1573,7 @@
              else if (url.includes('bird')) sceneType = 'bird';
              else if (url.includes('fish')) sceneType = 'fish';
              else if (url.includes('lego')) sceneType = 'lego';
-             else if (url.includes('niu')) sceneType = 'niu';
+             else if (url.includes('butterfly')) sceneType = 'butterfly';
              else if (url.includes('conch')) sceneType = 'conch';
            }
            
@@ -1541,9 +1581,9 @@
              // Scale pitch: 0.0014973227702496717 yaw: -0.00197982707479749 conch
              const scaleSettings = {
             default: {
-                '0': { position: [0.0, 0.0, 0.0], focal: 1441, yaw: 0, pitch: 0, orbitRadius: 0.3, radius: 0.1, bbox: [-9999, 9999, -9999, 9999, -0.05, 0.05, -0.05, 0.05] },
-                '1': { position: [0.0, 0.0, 0.0], focal: 14980, yaw: 0.005105210012827155, pitch:  0.0036574133674608616, orbitRadius: 0.3, radius: 0.1, bbox: [-9999, 9999, -9999, 9999, -0.01, 0.01, -0.01, 0.01] },
-                '2': { position: [0.0, 0.0, 0.0], focal: 91141, yaw: 0.005105210012827155, pitch:  0.0036574133674608616, orbitRadius: 0.8, radius: 0.1, bbox: [-0.02, 0.02, -9999, 9999, 0.0036574133674608616 -0.001, 0.0036574133674608616 +0.001, 0.005105210012827155 -0.001, 0.005105210012827155 +0.001] }
+                '0': { position: [0.0, 0.0, 0.0], focal: 1441, yaw: 0, pitch: 0, orbitRadius: 0.5, radius: 0.1, bbox: [-9999, 9999, -9999, 9999, -0.05, 0.05, -0.05, 0.05] },
+                '1': { position: [0.0, 0.0, 0.0], focal: 27352, yaw:0, pitch:  0, orbitRadius: 0.6, radius: 0.1, bbox: [-9999, 9999, -9999, 9999, -0.01, 0.01, -0.01, 0.01] },
+                '2': { position: [0.0, 0.0, 0.0], focal: 681120, yaw: 0, pitch:  0, orbitRadius: 1.3, radius: 0.1, bbox: [-9999, 9999, -9999, 9999, -0.01, 0.01, -0.01, 0.01] }
               },
               ladybug: {
                 '0': { position: [0.0, 0.0, 0.0], focal: 1441, yaw: 0, pitch: 0, orbitRadius: 0.3, radius: 0.1, bbox: [-9999, 9999, -9999, 9999, -0.05, 0.05, -0.05, 0.05] },
@@ -1561,14 +1601,14 @@
                 '2': { position: [0.0, 0.0, 0.0], focal: 43288, yaw: -0.00197982707479749, pitch: 0.0014973227702496717 , orbitRadius: 0.8, radius: 0.03, bbox: [-0.01, 0.01, -9999, 9999,  0.0014973227702496717 - 0.001,  0.0014973227702496717 + 0.001,-0.00197982707479749 -0.001 , -0.00197982707479749 +0.001]}
               },
               fish: {
-                '0': { position: [0, 0, 0], focal: 1024, yaw: 0, pitch: 0, orbitRadius: 0.5, radius: 0.2, bbox: [-9999, 9999, -9999, 9999, -0.12, 0.12, -0.12, 0.12] },
-                '1': { position: [0.1, 0.05, -1.0], focal: 800, yaw: 0.15, pitch: -0.05, orbitRadius: 0.3, radius: 0.15, bbox: [-9999, 9999, -9999, 9999, -0.08, 0.08, -0.18, 0.18] },
-                '2': { position: [-0.08, 0.1, -1.5], focal: 600, yaw: -0.12, pitch: 0.08, orbitRadius: 0.2, radius: 0.08, bbox: [-9999, 9999, -9999, 9999, -0.05, 0.05, -0.15, 0.15] }
+                '0': { position: [0.0, 0.0, 0.0], focal: 1441, yaw: 0, pitch: 0, orbitRadius: 1., radius: 0.1, bbox: [-9999, 9999, -9999, 9999, -0.05, 0.05, -0.05, 0.05] },
+                '1': { position: [0.0, 0.0, 0.0], focal: 5124, yaw:0, pitch:  0, orbitRadius: 0.6, radius: 0.1, bbox: [-9999, 9999, -9999, 9999, -0.01, 0.01, -0.01, 0.01] },
+                '2': { position: [0.0, 0.0, 0.0], focal: 95712, yaw: 0, pitch:  0, orbitRadius: 1.3, radius: 0.1, bbox: [-9999, 9999, -9999, 9999, -0.01, 0.01, -0.01, 0.01] }
               },
-              lego: {
-                '0': { position: [0.0, 0, -3.2], focal: 1700, yaw: 0, pitch: 0, orbitRadius: 0.8, radius: 0.25, bbox: [-9999, 9999, -9999, 9999, -0.15, 0.15, -0.15, 0.15] },
-                '1': { position: [0.1, 0.03, -2.5], focal: 1200, yaw: 0.1, pitch: -0.03, orbitRadius: 0.5, radius: 0.18, bbox: [-9999, 9999, -9999, 9999, -0.08, 0.08, -0.12, 0.12] },
-                '2': { position: [-0.05, 0.08, -2.8], focal: 1000, yaw: -0.08, pitch: 0.05, orbitRadius: 0.3, radius: 0.12, bbox: [-9999, 9999, -9999, 9999, -0.05, 0.05, -0.1, 0.1] }
+              butterfly: {
+                '0': { position: [0.0, 0.0, 0.0], focal: 1441, yaw: 0, pitch: 0, orbitRadius: 0.5, radius: 0.1, bbox: [-9999, 9999, -9999, 9999, -0.05, 0.05, -0.05, 0.05] },
+                '1': { position: [0.0, 0.0, 0.0], focal: 27352, yaw:0, pitch:  0, orbitRadius: 0.6, radius: 0.1, bbox: [-9999, 9999, -9999, 9999, -0.01, 0.01, -0.01, 0.01] },
+                '2': { position: [0.0, 0.0, 0.0], focal: 681120, yaw: 0, pitch:  0, orbitRadius: 1.3, radius: 0.1, bbox: [-9999, 9999, -9999, 9999, -0.01, 0.01, -0.01, 0.01] }
               },
 
  
@@ -1634,9 +1674,27 @@
            });
          }
 
-                 // 🎯 Spark
+                 // 🎯 全局变量用于跟踪下载状态
+         let currentDownloadXHR = null;
+         let isDownloading = false;
+
+         // 🎯 Spark
          async function handleSparkButtonChange(activeButtonUrl) {
            console.log(`🎯 Spark: ${activeButtonUrl}`);
+           
+           // 🎯 如果正在下载，先取消当前下载
+           if (isDownloading && currentDownloadXHR) {
+             console.log('🎯 取消当前下载');
+             currentDownloadXHR.abort();
+             currentDownloadXHR = null;
+             isDownloading = false;
+             
+             // 隐藏进度条
+             const progressContainer = document.getElementById('download-progress-container');
+             if (progressContainer) {
+               progressContainer.style.display = 'none';
+             }
+           }
            
            // splat
            if (window.sparkSplat) {
@@ -1705,9 +1763,9 @@
              }
            else if (activeButtonUrl.includes('fish')) {
              initialPosition = [0, 0, 0];
-             initialFocal = 1024;
+             initialFocal = 1441;
              // focalBounds = [800, 1500];
-             targetPosition = [0, 0, -2.0]; // 
+             targetPosition = [0,0,-10.6012]; // 
              splitThreshold = 3000;
              targetSplats = 100000;
              radius = 0.2; // 
@@ -1722,12 +1780,13 @@
              targetSplats = 120000;
              radius = 0.25; // 
            }
-           else if (activeButtonUrl.includes('niu')) {
+           else if (activeButtonUrl.includes('butterfly')) {
              initialPosition = [0, 0, 0];
-             initialFocal = 1024;
+             initialFocal = 1441;
              bbox = [-9999, 9999, -9999, 9999, -0.03, 0.3, -9999, 9999];
              // focalBounds = [800, 1500];
-             targetPosition = [0, 0, -0.8]; // 
+            //  targetPosition = [-0.016, -0.017, -9.9911]; // 
+            targetPosition = [-0., -0., -9.9911];
              splitThreshold = 2700;
              targetSplats = 90000;
              radius = 0.1; // 
@@ -1785,6 +1844,8 @@
              // 使用XMLHttpRequest绕过CORS并显示进度
              const arrayBuffer = await new Promise((resolve, reject) => {
                const xhr = new XMLHttpRequest();
+               currentDownloadXHR = xhr; // 保存XHR引用
+               isDownloading = true; // 设置下载状态
                xhr.open('GET', activeButtonUrl, true);
                xhr.responseType = 'arraybuffer';
                
@@ -1854,11 +1915,15 @@
                    setTimeout(() => {
                      progressContainer.style.display = 'none';
                    }, 1000);
+                   isDownloading = false; // 重置下载状态
+                   currentDownloadXHR = null; // 清除XHR引用
                    resolve(xhr.response);
                  } else {
                    downloadStatus.textContent = 'Download Failed';
                    downloadEta.textContent = '--:--';
                    progressBar.style.background = '#f44336';
+                   isDownloading = false; // 重置下载状态
+                   currentDownloadXHR = null; // 清除XHR引用
                    reject(new Error(`HTTP ${xhr.status}: Unable to load ${activeButtonUrl}`));
                  }
                };
@@ -1867,7 +1932,18 @@
                  downloadStatus.textContent = 'Network Error';
                  downloadEta.textContent = '--:--';
                  progressBar.style.background = '#f44336';
+                 isDownloading = false; // 重置下载状态
+                 currentDownloadXHR = null; // 清除XHR引用
                  reject(new Error('Network error'));
+               };
+               
+               xhr.onabort = () => {
+                 downloadStatus.textContent = 'Download Cancelled';
+                 downloadEta.textContent = '--:--';
+                 progressBar.style.background = '#ff9800';
+                 isDownloading = false; // 重置下载状态
+                 currentDownloadXHR = null; // 清除XHR引用
+                 reject(new Error('Download cancelled'));
                };
                
                xhr.send();
@@ -1964,14 +2040,33 @@
          console.log(`🎯 : ${radius}`);
              
              
-             // 🎯 
+             // 🎯 自动设置为Scale 0
              setTimeout(() => {
+               const scale0Button = document.querySelector('.scale-button[data-scale="0"]');
+               if (scale0Button) {
+                 // 移除所有scale按钮的active状态
+                 document.querySelectorAll('.scale-button').forEach(btn => btn.classList.remove('active'));
+                 // 设置Scale 0为active
+                 scale0Button.classList.add('active');
+                 
+                 // 获取Scale 0的设置并应用
+                 const scale0Settings = getScaleSettings('0');
+                 smoothTransitionToCamera(scale0Settings);
+                 
+                 console.log('🎯 自动设置为Scale 0');
+               }
+               
                document.body.focus();
                console.log('🎯 ');
              }, 100);
              
            } catch (error) {
-             console.error('❌ Spark:', error);
+             // 只有在不是取消下载的情况下才显示错误
+             if (!error.message.includes('cancelled')) {
+               console.error('❌ Spark:', error);
+             } else {
+               console.log('🎯 下载已取消');
+             }
              // 🎯 隐藏进度条
              const progressContainer = document.getElementById('download-progress-container');
              if (progressContainer) {
@@ -1983,6 +2078,20 @@
                  // 🎯 Spark
          function handleSparkClear() {
            console.log('🎯 Spark');
+           
+           // 🎯 如果正在下载，先取消下载
+           if (isDownloading && currentDownloadXHR) {
+             console.log('🎯 取消当前下载');
+             currentDownloadXHR.abort();
+             currentDownloadXHR = null;
+             isDownloading = false;
+             
+             // 隐藏进度条
+             const progressContainer = document.getElementById('download-progress-container');
+             if (progressContainer) {
+               progressContainer.style.display = 'none';
+             }
+           }
            
            if (window.sparkSplat) {
              window.sparkScene.remove(window.sparkSplat);
@@ -2032,6 +2141,21 @@
           //  window.sparkRadius = 9999; // 
            
            console.log('🎯 : [0,0,0], FOV: 26.3°, Yaw: 0, Pitch: 0, focal');
+           
+           // 🎯 自动设置为Scale 0
+           const scale0Button = document.querySelector('.scale-button[data-scale="0"]');
+           if (scale0Button) {
+             // 移除所有scale按钮的active状态
+             document.querySelectorAll('.scale-button').forEach(btn => btn.classList.remove('active'));
+             // 设置Scale 0为active
+             scale0Button.classList.add('active');
+             
+             // 获取Scale 0的设置并应用
+             const scale0Settings = getScaleSettings('0');
+             smoothTransitionToCamera(scale0Settings);
+             
+             console.log('🎯 清除场景后自动设置为Scale 0');
+           }
            
            console.log('🎯 ');
          }
