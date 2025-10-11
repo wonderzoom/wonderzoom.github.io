@@ -1398,21 +1398,21 @@
                e.stopPropagation();
                e.preventDefault();
                
+               // 🎯 如果正在下载，先取消下载
+               if (isDownloading && currentDownloadXHR) {
+                 console.log('🎯 检测到正在下载，先取消当前下载');
+                 currentDownloadXHR.abort();
+                 currentDownloadXHR = null;
+                 isDownloading = false;
+                 
+                 // 隐藏进度条
+                 const progressContainer = document.getElementById('download-progress-container');
+                 if (progressContainer) {
+                   progressContainer.style.display = 'none';
+                 }
+               }
+               
                if (currentActiveButton !== this) {
-                // 🎯 如果正在下载，先取消下载
-                if (isDownloading && currentDownloadXHR) {
-                  console.log('🎯 检测到正在下载，先取消当前下载');
-                  currentDownloadXHR.abort();
-                  currentDownloadXHR = null;
-                  isDownloading = false;
-                  
-                  // 隐藏进度条
-                  const progressContainer = document.getElementById('download-progress-container');
-                  if (progressContainer) {
-                    progressContainer.style.display = 'none';
-                  }
-                }
-                
                 // 🎯 如果当前有加载的场景，先清除
                 if (currentActiveButton && (window.sparkSplat || window.splatFirst || window.splatSecond)) {
                   console.log('🎯 检测到已加载场景，先清除当前场景');
@@ -1458,6 +1458,15 @@
                      handleSparkClear();
                    }
                 }
+               } else {
+                 // 🎯 点击同一个按钮，如果正在下载则重新下载
+                 if (this.dataset.url) {
+                   console.log('🎯 点击同一个按钮，重新开始下载');
+                   // 已经在上面取消了下载，这里延迟一下再重新开始，确保状态完全重置
+                   setTimeout(() => {
+                     handleSparkButtonChange(this.dataset.url);
+                   }, 50);
+                 }
                }
                
                // 🎯 body
@@ -1681,20 +1690,6 @@
          // 🎯 Spark
          async function handleSparkButtonChange(activeButtonUrl) {
            console.log(`🎯 Spark: ${activeButtonUrl}`);
-           
-           // 🎯 如果正在下载，先取消当前下载
-           if (isDownloading && currentDownloadXHR) {
-             console.log('🎯 取消当前下载');
-             currentDownloadXHR.abort();
-             currentDownloadXHR = null;
-             isDownloading = false;
-             
-             // 隐藏进度条
-             const progressContainer = document.getElementById('download-progress-container');
-             if (progressContainer) {
-               progressContainer.style.display = 'none';
-             }
-           }
            
            // splat
            if (window.sparkSplat) {
