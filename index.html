@@ -226,7 +226,7 @@
             <div class="col text-center mt-m4">
                 <ul class="list-inline">
                     <li class="list-inline-item">
-                        <a href="https://wonderzoom.github.io/" class="resource-button">
+                        <a href="https://arxiv.org/pdf/2512.09164" class="resource-button">
                             <img src="assets/images/icons/paper_icon_rev.png" class="button-icon">
                             Paper
                         </a>
@@ -2308,7 +2308,102 @@
             });
         });
 
+        // Copy BibTeX to clipboard
+        function copyToClipboard(button) {
+            const citationText = document.getElementById('citation-text');
+            if (!citationText) {
+                console.error('Citation text element not found');
+                return;
+            }
+
+            // Get the text content, preserving formatting
+            const text = citationText.textContent || citationText.innerText;
+
+            // Use the Clipboard API
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    // Success feedback
+                    const originalText = button.textContent;
+                    button.textContent = 'Copied!';
+                    button.style.background = '#4CAF50';
+                    
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.style.background = '';
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy text: ', err);
+                    // Fallback for older browsers
+                    fallbackCopyTextToClipboard(text, button);
+                });
+            } else {
+                // Fallback for older browsers
+                fallbackCopyTextToClipboard(text, button);
+            }
+        }
+
+        // Fallback copy function for older browsers
+        function fallbackCopyTextToClipboard(text, button) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.top = '0';
+            textArea.style.left = '0';
+            textArea.style.position = 'fixed';
+            textArea.style.opacity = '0';
+            
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    const originalText = button.textContent;
+                    button.textContent = 'Copied!';
+                    button.style.background = '#4CAF50';
+                    
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.style.background = '';
+                    }, 2000);
+                } else {
+                    alert('Failed to copy. Please select and copy manually.');
+                }
+            } catch (err) {
+                console.error('Fallback copy failed: ', err);
+                alert('Failed to copy. Please select and copy manually.');
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
     </script>
+
+    <section>
+        <div class="container">
+            <div class="row" id="citation">
+                <div class="col my-3">
+                    <p class="text-header">
+                        BibTeX
+                    </p>
+                    <div class="citation-block">
+                        <div id="citation-text" class="citation-content">
+@misc{wonderzoom,
+      title={WonderZoom: Multi-Scale 3D World Generation}, 
+      author={Jin Cao and Hong-Xing Yu and Jiajun Wu},
+      year={2025},
+      eprint={2512.09164},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2512.09164}, 
+}
+                        </div>
+                        <button onclick="copyToClipboard(this)" class="button active mt-2">Copy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 </body>
 
